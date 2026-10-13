@@ -1,7 +1,8 @@
 # AI Governance Demo — Presenter Runbook
 
 *Desktop / browser instructions for driving the deck + demos as if presenting live.
-Companion to `README.md` (spec), `SPEAKER-NOTES.md` (talk-track).*
+Companion to `README.md` (spec), `SPEAKER-NOTES.md` (talk-track), and `TELEPROMPTER.md`
+(the script text alone, generated from the notes).*
 
 Duration budget: ~45 min presentation + ~15 min Q&A (adjust to slot).
 
@@ -104,7 +105,8 @@ through each of these once, all inside the console:
 5. **Verify → Controls → Sign.** Confirm the "Signing does not attest to any of the
    following" list renders and the **Signed bundles** table below has at least one row.
 6. **Verify → Verdicts.** Confirm the ledger loads with verdicts, newest first, and a mix
-   of **Upheld / Breached / Error** conclusions is visible without changing filters.
+   of **Upheld / Breached / Error** conclusions is visible without changing filters. (The
+   console may still label violations "Breached"; say "violation" aloud.)
 
 *Any FAIL = escalate before dial-in; do not present Demo 1 broken.* **Every Accept/Sign
 click in the real session is a live, persistent write** — counters will read one higher
@@ -216,7 +218,29 @@ dropdown (top right, next to Period) is on a real hosted cluster profile instead
 `optimize-local` first among any "optimize"-named keys
 (`curl -s http://localhost:9889/api/companion/profiles`).
 
-### 2.6 Deck navigation controls
+### 2.6 Start the trace ledger (Verify → Traces/Replay backing service)
+
+`samples/trace-ledger` is a separate Akka service — the simulated trace and
+human-oversight store behind Verify → Traces, Replay, and the Agents directory. It is
+not started by `akka local start` and not covered anywhere else in this runbook; miss
+it and Traces/Replay fail with `dial tcp 127.0.0.1:9096: connect: connection refused`.
+Its poller reads from the running console, so start it *after* §2.5, console already up:
+
+```bash
+cd ~/akka/akka-console-ai-canvas/samples/trace-ledger
+mvn -q compile exec:java
+```
+
+First run compiles from cold — allow ~60-90s. Confirm it's up:
+
+```bash
+curl -s -o /dev/null -w "%{http_code}\n" http://127.0.0.1:9096/traces?limit=1   # expect 200
+```
+
+Long-running, same pattern as workbench-svc (§2.1) — leave it in its own terminal window
+or backgrounded for the session; stop it with `lsof -ti:9096 | xargs kill`.
+
+### 2.7 Deck navigation controls
 
 Deck is driven by keyboard — never the mouse, never a clicker unless tested against this
 deck's key bindings.
@@ -238,28 +262,33 @@ not a build failure.
 
 ## 3. Slide-by-slide walk
 
-Read talk-tracks from `SPEAKER-NOTES.md` — the notes are the source of truth; this table
-is just cues + timing. Word budgets are enforced (≤70 words visible per slide) so the
-audience has time to look at *you*, not the screen.
+Read talk-tracks from `TELEPROMPTER.md` (cue, land, and sources are in `SPEAKER-NOTES.md`).
+This table is just cues + timing. Word budgets are enforced (≤70 words visible per slide) so
+the audience has time to look at *you*, not the screen. Slide numbers below are the folder
+numbers in `slides/`, which the demo beats in §4 also use.
 
 | # | Slide title | Time | Key cue / action |
 |---|---|---|---|
-| 00 | Title | 1 min | Present the frame — governance-first operating model. |
-| 01 | Controls are defined once. Posture is proved everywhere | 3 min | Read Decide / Define / Enforce rows aloud. |
-| 02 | Postures have a lifecycle | 3 min | Trace both halves live: the categorization grid drives the five-step stack. Then go straight into Demo 1 (§4.1) — **name each of the five steps as the console does it.** |
-| 03 | What is a control? | 1 min | Recap, not a cold definition — "you just watched all five of these." No new demo. |
-| 04 | Control types | 3 min | Five types, one grounded example per type. |
-| 05 | Controls come from three sources | 3 min | Regulatory (badges), corporate, project-scoped. |
-| 06 | Controls managed like software | 3 min | Bundle → Sign → Enforce → Release. Name who signs and what happens on a new release. |
-| 07 | Every control execution produces a verdict | 3 min | Upheld/Breached/Inconclusive/Error, tamper-evident log. Canvas walkthrough live (§4.2). |
-| 08 | Environments keep the lifecycle continuous | 3 min | Pre-production / Documents / Production. Frame around continuity, not just a taxonomy. |
-| 09 | The gateway doesn't care who built the agent | 2 min | Akka agents vs. any other agent, via the gateway. Be precise: "most controls," not all. |
-| 10 | Drift is a pattern change in the verdict ledger | 3 min | Real console vocabulary and grounding examples. Verdicts/Replay walkthrough (§4.3). |
-| 11 | The AI gateway makes every token observable | 3 min | Govern / Optimize / Iterate. Optimize walkthrough live (§4.4). |
-| zz | Thank you | 1 min | Open the floor. |
+| 00 | Title | 1 min | Operating model, not a product tour. |
+| 00a | Customer requirements | 2 min | Summarize the asks in order; promise to point back. Customer copy only. |
+| 00b | AI regulations | 1 min | Why now: penalties, outside-in tools. |
+| 01 | You define your AI risk posture as sets of controls | 2 min | Decide / Define / Enforce rows. |
+| 02 | Postures have a lifecycle | 3 min | Trace the categorization grid and the lifecycle boxes. Then go straight into Demo 1 (§4.1) — **name each step as the console does it.** |
+| 03 | There are only five types of controls | 3 min | Recap, not a cold definition — "you just watched these." One example per type. No new demo. |
+| 04 | Controls are created in three ways | 2 min | Corpus (226 regulations, 1,369 controls), corporate, project. |
+| 05 | Groups of controls are placed into signed bundles | 3 min | Control matrix 12 → 34 → 51. Signing is versioning, not human sign-off; roll forward only. |
+| 06 | Every control execution produces a verdict | 3 min | Upheld / violated / inconclusive / error, tamper-evident store. Canvas walkthrough live (§4.2). |
+| 07 | Controls can execute in pre-production or production | 3 min | Documents, pre-production (full / targeted / records only), production. Engineers learn early. |
+| 07b | Compliance is observing the verdicts… | 1 min | By control, regulation, bundle. A violation is not automatic non-compliance. |
+| 08 | Drift is a pattern change in the verdict ledger | 2 min | Same control, two times. Verdicts/Replay live if time allows (§4.3). |
+| 09 | Controls can be enforced on 3rd party agents | 2 min | Gateway; be precise: "most controls," not all. Human-in-the-loop needs agent changes. |
+| 10 | Traces, tokens, and verdicts are recorded together | 2 min | Observe / Scrutinize / Compare. Optimize walkthrough live (§4.4). |
+| zz | Thank you | 1 min | Recap in slide order; open the floor. |
 
-**Total speaking + demo time**: ~35 min at pace above (leaves ~10 min for Q&A on a 45-min
-slot).
+**Total**: ~31 min speaking, plus the demo beats in §4 (Canvas and Optimize target ~3 and
+~2 min; Demo 1 per §4.1). Fits a 45-min slot with ~10 min for Q&A.
+
+The appendix demo slide is no longer in the build.
 
 ---
 
@@ -277,7 +306,7 @@ Verdicts), because `workbench-svc` is a discovered service the console surfaces 
 mid-demo, just clicks down the Verify section. The backing process (§2.1) still has to be
 running; it just isn't presented on its own anymore.
 
-**Why this beat exists**: Slide 02 names the five-step lifecycle abstractly. This demo is
+**Why this beat exists**: Slide 02 shows the lifecycle abstractly. This demo is
 where the audience sees each step happen on a real system, by name, before any later slide
 formalizes it — Slide 03 onward recap and define what was just watched, they don't
 introduce it cold. Don't skip ahead to "control" vocabulary before this beat runs.
@@ -363,7 +392,7 @@ this session.
    question — this is the key thing to show, not optional flavor.
 4. **Tab-switch back to the deck.** Continue to Slide 07.
 
-#### 4.3 Verdicts/Replay walkthrough (drift) *(after Slide 09)*
+#### 4.3 Verdicts/Replay walkthrough (drift) *(after Slide 08)*
 
 Query the same control live in **Verify → Verdicts** across two time points, then open
 **Verify → Replay** on the session behind an anomalous verdict to show *why* it happened,
@@ -385,7 +414,7 @@ service health, then confirm the Spend page shows non-zero exchanges before the 
 
 **Fallback (no seeded traffic, or Optimize errors)**: narrate the page structure without a
 live number, and land the cost-governance point verbally on Slide 10 using the
-Govern/Optimize/Iterate framing already in the slide copy.
+Observe/Scrutinize/Compare framing already in the slide copy.
 
 ---
 
@@ -463,6 +492,9 @@ DEMO 1 BACKEND   workbench-svc must be running — not presented directly, conso
                  cd ~/akka/governance-explainability
                  PROJECT_ROOT=./demo REPO_ROOT=. mvn -f services/workbench-svc/pom.xml -q compile exec:java
 DEMO 1 BACKEND STOP  lsof -ti:8730 | xargs kill
+TRACE LEDGER     cd ~/akka/akka-console-ai-canvas/samples/trace-ledger && mvn -q compile exec:java
+                 (start after CONSOLE START — backs Verify > Traces/Replay, port 9096)
+TRACE LEDGER STOP  lsof -ti:9096 | xargs kill
 CONSOLE START    cd ~/akka/akka-console-ai-canvas && bash scripts/build-akka-with-console.sh \
                  && akka-cli/build/akka local stop; akka-cli/build/akka local start
 CONSOLE STOP     cd ~/akka/akka-console-ai-canvas && akka-cli/build/akka local stop

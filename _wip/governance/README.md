@@ -1,6 +1,6 @@
 # AI Governance Deck — Canonical Specification
 
-This is the generic, customer-agnostic version of Akka's AI-governance narrative: ten
+This is the generic, customer-agnostic version of Akka's AI-governance narrative: eleven
 operating principles, told as one continuous story, bracketed by a title and close slide.
 
 ## Source of truth
@@ -39,7 +39,7 @@ sources, in this priority order when they conflict:
 When the deck and a source disagree, the source wins — fix the deck, don't reinterpret
 the source.
 
-## The ten principles → slides
+## The eleven principles → slides
 
 | # | Folder | Principle (Tyler's wording, condensed) |
 |---|---|---|
@@ -50,11 +50,12 @@ the source.
 | 5 | `05-controls-as-software` | Controls are managed like software — packaged into a signed, versioned bundle that is applied discretely to a given agentic system. |
 | 6 | `06-trace-outcomes` | Control outcomes are traced with the same infrastructure as the AI system itself. |
 | 7 | `07-three-environments` | Environments — documentation stores, pre-production (testing), production — aggregate into one compliance view. |
-| 8 | `08-drift` | Drift: comparing control outcomes for the same model/agent/system over time (stored outcomes, EvalKit/RedKit experimentation). |
-| 9 | `09-ai-gateway` | Akka provides an AI gateway, agent runtime, and control runtime in the same environment — controls enforce on Akka agents **and** (mostly) non-Akka agents. |
-| 10 | `10-tokenomics` | Token visibility across all models/agents enables cost governance — budgeting, chargeback, real-time optimization. |
+| 8 | `07b-compliance` | Compliance is observing the verdicts for a group of controls over time: compliant right now, and drifted or not. |
+| 9 | `08-drift` | Drift: comparing control outcomes for the same model/agent/system over time (stored outcomes, EvalKit/RedKit experimentation). |
+| 10 | `09-ai-gateway` | Akka provides an AI gateway, agent runtime, and control runtime in the same environment — controls enforce on Akka agents **and** (mostly) non-Akka agents. |
+| 11 | `10-tokenomics` | Traces, tokens, and verdicts are recorded together; token visibility across all models/agents enables cost governance — budgeting, chargeback, real-time optimization. |
 
-Plus `00-title` and `zz-thankyou` bracketing the ten.
+Plus `00-title`, `00a-cibc-requirements`, `00b-ai-regulations`, and `zz-thankyou` around the eleven. `00a` carries a customer name and belongs only in a customer copy; `07b` is the one principle that goes beyond Tyler's original ten-principle script.
 
 ## Known gaps against the canonical source
 
@@ -81,7 +82,7 @@ as documented in `builder/build.py`.
 ## Demo
 
 See `PRESENTER-RUNBOOK.md` for desktop setup, console startup, and the slide-by-slide
-walk with demo cues. `SPEAKER-NOTES.md` is the talk-track source of truth per slide.
+walk with demo cues. `SPEAKER-NOTES.md` is the talk-track source of truth per slide; `TELEPROMPTER.md` is generated from it (`python3 builder/teleprompter.py`).
 
 ## Customer decks
 
