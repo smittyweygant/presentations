@@ -1,43 +1,27 @@
-# AI Governance Demo — Teleprompter
-Generated from `SPEAKER-NOTES.md` by `builder/teleprompter.py`. Edit the notes, not this file.
+# governance — Teleprompter
+Generated from `SPEAKER-NOTES.md` by `tools/teleprompter/build.py`. Edit the notes, not this file.
 
 ---
 
 ## Slide 00 — Title
 
-Hello, everyone. I'm Smitty, Field CTO for the Americas at Akka.
+Hello, everyone. Thank you for joining me.
 
 Today I'm going to walk you through how Akka approaches AI governance. This is an operating model, not a product tour. We'll break the governance problem into its elements, build it back up one principle at a time, and then show you what it looks like running.
-
-Questions are welcome at any point. If I'm midway through a thought I may ask you to hold one for a moment, but please don't sit on it.
-
----
-
-## Slide 00a — Customer requirements
-
-Before the principles, I want to put your requirements on the screen, because everything that follows is organized around them.
-
-You asked us to show how governance applies to AI agents built outside your platform, such as Copilot or Appian.
-
-You asked how your internal policies become controls a machine can enforce, and what happens when one is violated.
-
-You asked how an application stays compliant over time, through runtime guardrails, prompt changes, newly connected tools, and risk reassessment.
-
-You asked for financial governance, with AI spend visible by department, use case, application, and owner.
-
-And you asked how a new AI use case moves from intake through risk assessment, approval, deployment, monitoring, and retirement.
-
-I'll point back to this slide as we go. I'll also be plain about what Akka does today and what we would configure with you.
 
 ---
 
 ## Slide 00b — AI regulations
 
-Why this matters now. Regulations are multiplying. The EU AI Act allows penalties of up to seven percent of global turnover for the most serious violations, and it requires providers to keep technical documentation for ten years.
+Why this matters now. Regulations are multiplying, and the penalties are large. Under the EU AI Act, a prohibited practice carries a fine of up to thirty-five million euros or seven percent of global annual turnover, whichever is higher.
 
-At the same time, most governance tools look at AI systems from the outside. They report after something has happened. They can't enforce at the point where an agent calls a model or a tool.
+    Take social scoring, which the Act prohibits. Imagine a lender whose AI lowers a customer's credit limit because of what that customer posts on social media. That's a risk score built from social behavior, used against the customer to assess their credit risk. That practice warrants the top penalty tier.
 
-So the questions are where enforcement lives, and how you prove it worked. The rest of this session answers both.
+    The Act also requires providers of high-risk systems to keep technical documentation for ten years.
+
+		At the same time, most governance tools monitor AI systems from the outside. They report after something has happened. They can't enforce at the point where an agent calls a model or a tool.
+
+		So the questions are where enforcement lives, and how you prove it worked. The rest of this session answers both.
 
 ---
 
@@ -45,7 +29,7 @@ So the questions are where enforcement lives, and how you prove it worked. The r
 
 The first principle. You define your AI risk posture as a set of controls.
 
-Every business already has a risk appetite. It has regulatory duties, and it has corporate policy. Akka doesn't supply those. You decide them.
+Every business already has a risk posture. It has regulatory duties, and it has corporate policy. Akka doesn't supply those. You decide them.
 
 What Akka does is turn those decisions into controls. A control is a discrete, enforceable check. You define controls independently of any one AI system, so governance and the agentic system are defined separately and managed separately.
 
@@ -59,23 +43,27 @@ The second principle. A posture has a lifecycle, and Akka manages it like softwa
 
 It starts with a risk profile, which we capture in a risk survey. The survey asks four kinds of questions.
 
-Intent: what is this system for, and who is accountable. Autonomy: what can it decide on its own, and when must a human step in. Boundaries: who can it affect, and what data and dependencies shape it. And evidence: which regulations govern it, what evidence it must produce, and who attests to it.
+Intent: what is this system for, and who is accountable. Autonomy: what can it decide on its own, and when must a human step in. Boundaries: who can it affect, and what data and dependencies shape it. And Evidence: which regulations govern it, what evidence it must produce, and who attests to it.
 
 Your answers map to controls. Those controls are collected into a control matrix. The matrix is enforced on test systems and production systems. Then you measure how the posture is performing, and the verdicts and drift you find feed the next cycle.
 
 That's a loop, not a checklist. Rather than keep describing it, let me show it to you.
 
->>> DEMO 1 — console: Define Risk, Identify Controls, Sign, Enforce, Measure <<<
+---
+
+>>> I'll DEMO this in the Akka console: Define Risk, Identify Controls, Sign, Enforce, Measure <<<
 
 ---
 
 ## Slide 03 — There are only five types of controls
 
-You just watched a control get defined, signed, and enforced. Now let me name what a control is.
+The third principle is that there are five types of controls.
 
-A control is a discrete, provable check. It holds or it doesn't, and the outcome can be shown.
+You just watched a control get defined, signed, and enforced.
 
-There are only five types of controls, and every obligation you have reduces to one of them.
+A control is a discrete, provable check. It holds or it doesn't, and evidence supporting each event and verdict can be produced.
+
+Every obligation you have reduces to one of these types:
 
 A guardrail blocks or allows a call at a runtime boundary: before or after a model, a tool, an agent, or a memory call. For example, stopping a wire transfer that lacks dual sign-off.
 
@@ -86,8 +74,6 @@ A human control covers the human-in-the-loop moments: approvals, halts, feedback
 A gate is a release activity. It runs against documents or in pre-production to confirm a system is ready. For example, blocking a deploy that lacks a current bias-audit attestation.
 
 And a sanitizer redacts, masks, or strips data before it moves on. For example, removing an applicant's Social Security number before the model sees it.
-
-Policy isn't a sixth type. Policy decides which of the five apply.
 
 ---
 
@@ -111,7 +97,7 @@ The fifth principle. Groups of controls are placed into a signed bundle. We call
 
 For each corporate or custom control, you explicitly accept it, waive it, or remove it. When the mapping is clean, you sign. Signing creates a version: a record of exactly which controls make up that scope of checks.
 
-Look at the example. The loan origination assistant launches answering borrower questions. The risk is disclosure accuracy, and version one carries twelve controls. It gains judgment and starts recommending approve or deny. Fair lending becomes a real risk, and version two carries thirty-four controls. Then it gains authority to initiate the wire transfer. Dual control becomes a risk, and version three carries fifty-one.
+In this example, the loan origination assistant launches with the ability to answer borrower questions. The risk is disclosure accuracy, and version one carries twelve controls. It gains judgment and starts recommending approve or deny. Fair lending becomes a real risk, and version two carries thirty-four controls. Then it gains authority to initiate the wire transfer. Dual control becomes a risk, and version three carries fifty-one.
 
 Every version is kept, and you can compare any two to see how your posture changed. You roll forward. You don't roll back. A change creates a new version.
 
@@ -209,12 +195,12 @@ Let me show you.
 
 ## Slide zz — Thank you
 
-That's the operating model. You define your posture as controls, and you manage it as software. There are five types of controls, from three sources, packaged in signed bundles. Verdicts record every execution across pre-production and production, and compliance and drift are read from those verdicts. The same controls reach third-party agents through the gateway, and traces, tokens, and verdicts land together.
+In summary, that's the operating model. You define your posture as controls, and you manage it as software. There are five types of controls, from three sources, packaged in signed bundles. Verdicts record every execution across pre-production and production, and compliance and drift are read from those verdicts. The same controls reach third-party agents through the gateway, and traces, tokens, and verdicts land together.
 
-Akka is one platform for your developers, your AI risk and security teams, your machine learning engineers, and your infrastructure engineers.
+    Akka is one platform for your developers, your AI risk and security teams, your machine learning engineers, and your infrastructure engineers to build agentic systems.
 
-I'll take questions now.
+		Thank you.
 
 ---
 
-Spoken words: about 2080. At 150 words a minute that is about 13 minutes, before demos.
+Spoken words: about 1972. At 150 words a minute that is about 13 minutes, before demos.

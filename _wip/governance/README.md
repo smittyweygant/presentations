@@ -69,6 +69,34 @@ pass has a clear punch list:
   confirming that over an earlier three-form framing from a GitHub issue. Doesn't affect
   this deck today — "Human" is a single slide, not broken into flavors — but don't invent
   a flavor breakdown here without re-checking that thread first.
+- **Gateway wording (slide 09).** Tyler said the gateway covers "guardrails and evals". The
+  spec (`agentgateway-enforceable-controls.md`) says scheduled batch evaluations don't run in
+  the request path. The script says "evals on live traffic" to stay inside both. Confirm
+  with Tyler.
+- **"Breach" vs "violation".** Tyler asked for "violation", because breach reads as data
+  breach. The deck and scripts say "violated". The console may still label these
+  "Breached", and the runbook's Demo 1 steps describe that label.
+- **Customer slide in the generic deck.** `00a-cibc-requirements` carries a customer name,
+  which this README says doesn't belong here. It belongs only in a customer copy.
+- **EU AI Act figures (slide 00b).** Checked against the Act's text on 2026-10-13: only
+  prohibited practices carry the 35 million euro / 7% ceiling (Art. 99(3)); documentation
+  retention is ten years (Art. 18). The log retention period (Art. 19) isn't verified, and
+  the scripts don't state one.
+- **Voice check.** The `house-voice` skill named in the repo's `CLAUDE.md` wasn't available
+  when the scripts were written, so they haven't had a voice pass.
+- **Presenter file.** `presenters/smitty.json` lists LinkedIn `smithweygant`. Check it isn't
+  a typo; it prints on the title and close slides.
+- **Slide framing audit.** `tools/auditors/pgdn-frame` looks for Edge at Windows paths, so it
+  can't run on a Mac. Slides were measured in Chrome instead (all fit a 763px viewport);
+  only 00b, 02 and 06 were viewed rendered.
+
+## Talk track
+
+`SPEAKER-NOTES.md` carries each slide's cue, script, land points, and sources, following
+Tyler's 2026-10-05 walkthrough. Demo 1 is its own teleprompter page; the Canvas (slide 06)
+and Optimize (slide 10) demo cues sit inside their slides' pages. Slide 00a is omitted from
+the teleprompter. Scripts are written for the ear and are the only text the teleprompter
+files carry.
 
 ## Build
 
@@ -82,7 +110,7 @@ as documented in `builder/build.py`.
 ## Demo
 
 See `PRESENTER-RUNBOOK.md` for desktop setup, console startup, and the slide-by-slide
-walk with demo cues. `SPEAKER-NOTES.md` is the talk-track source of truth per slide; `TELEPROMPTER.md` is generated from it (`python3 builder/teleprompter.py`).
+walk with demo cues. `SPEAKER-NOTES.md` is the talk-track source of truth per slide; the files in `teleprompter/` are generated from it (`python3 tools/teleprompter/build.py _wip/governance --presenter smitty`).
 
 ## Customer decks
 

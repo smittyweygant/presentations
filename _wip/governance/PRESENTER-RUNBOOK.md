@@ -1,8 +1,8 @@
 # AI Governance Demo — Presenter Runbook
 
 *Desktop / browser instructions for driving the deck + demos as if presenting live.
-Companion to `README.md` (spec), `SPEAKER-NOTES.md` (talk-track), and `TELEPROMPTER.md`
-(the script text alone, generated from the notes).*
+Companion to `README.md` (spec), `SPEAKER-NOTES.md` (talk-track), and `teleprompter/`
+(the script text alone, generated from the notes; load `governance-smitty.textream` in Textream).*
 
 Duration budget: ~45 min presentation + ~15 min Q&A (adjust to slot).
 
@@ -63,6 +63,15 @@ and notes never make the shared feed.
 ---
 
 ## 2. Environment setup — the 10 minutes before you dial in
+
+### 2.0 One command
+
+`./demo-env.sh up --pull` runs §2.1, §2.5 and §2.6 in order: it fast-forwards
+`governance-explainability` and `akka-console-ai-canvas`, stops everything, rebuilds the
+console, and starts workbench-svc, the console daemon, the trace ledger and the Optimize
+services. `./demo-env.sh status` reports what is answering and `./demo-env.sh down` stops it
+all. Logs go to `/tmp/governance-demo-logs/`. Allow about 8 minutes cold. The sections below
+are the manual steps it replaces.
 
 ### 2.1 Start the Demo 1 backing service (workbench-svc)
 
@@ -171,6 +180,13 @@ akka-cli/build/akka local start       # backgrounds itself; daemonizes
 akka-cli/build/akka local status      # confirm: HTTP localhost:9889
 ```
 
+`build-akka-with-console.sh` calls bare `python`. If pyenv has no global version it fails
+with `pyenv: python: command not found`; prefix the call with `PYENV_VERSION=3.12.8`.
+
+The daemon keeps registered services in memory and has no unregister. A service started
+from another project (for example a customer demo) stays listed as Unavailable until the
+daemon restarts, which is why the `akka local stop` above is not optional.
+
 Open **`http://localhost:9889`**. Left nav: Dashboard / **Canvas** / Services / Specify
 (Specs, Docs, Auditors, Exit conditions) / Verify (Risk, Controls, Evaluations, Red
 teaming, Traces, Replay, Verdicts, Compliance). Canvas ships starter questions — good for
@@ -204,6 +220,13 @@ python3 -c "import json; p=json.load(open('data/pids.json')); \
 import os,signal; os.kill(p.pop('svc-gateway-router'),signal.SIGTERM); \
 json.dump(p, open('data/pids.json','w'))"
 python3 stack.py services-direct          # no --discover; only relaunches gateway-router
+```
+
+`stack.py services-direct` runs `mvn compile exec:java` without the spotless skip, so on a
+current JDK each service fails with a `palantir-java-format` error. Export
+`MAVEN_ARGS=-Dspotless.skip=true` before running it.
+
+```bash
 python3 stack.py traffic 3                # ongoing traffic, 3 conversations/min
 python3 check.py                          # verify — every Optimize-page command, one line each
 ```
@@ -262,7 +285,7 @@ not a build failure.
 
 ## 3. Slide-by-slide walk
 
-Read talk-tracks from `TELEPROMPTER.md` (cue, land, and sources are in `SPEAKER-NOTES.md`).
+Read talk-tracks from `teleprompter/governance-<presenter>.textream` (cue, land, and sources are in `SPEAKER-NOTES.md`).
 This table is just cues + timing. Word budgets are enforced (≤70 words visible per slide) so
 the audience has time to look at *you*, not the screen. Slide numbers below are the folder
 numbers in `slides/`, which the demo beats in §4 also use.
@@ -271,7 +294,7 @@ numbers in `slides/`, which the demo beats in §4 also use.
 |---|---|---|---|
 | 00 | Title | 1 min | Operating model, not a product tour. |
 | 00a | Customer requirements | 2 min | Summarize the asks in order; promise to point back. Customer copy only. |
-| 00b | AI regulations | 1 min | Why now: penalties, outside-in tools. |
+| 00b | AI regulations | 1 min | Why now: top penalty tier is for prohibited practices (social scoring example), outside-in tools. |
 | 01 | You define your AI risk posture as sets of controls | 2 min | Decide / Define / Enforce rows. |
 | 02 | Postures have a lifecycle | 3 min | Trace the categorization grid and the lifecycle boxes. Then go straight into Demo 1 (§4.1) — **name each step as the console does it.** |
 | 03 | There are only five types of controls | 3 min | Recap, not a cold definition — "you just watched these." One example per type. No new demo. |
@@ -484,6 +507,7 @@ git status demo/governance/signed/
 ## 7. One-page cheat sheet (print or keep on a phone)
 
 ```
+ENVIRONMENT      cd ~/akka/presentations/_wip/governance && ./demo-env.sh up --pull   (also: down, status)
 DECK             file:///Users/smittyweygant/akka/presentations/_wip/governance/generated/overview/index.html
 CONSOLE (ALL)    http://localhost:9889  (land on Canvas, nav collapsed — Dashboard/Verify/Optimize also in left nav)
                  Demo 1 (after Slide 02): Verify > Risk > Controls (Corpus/Bundle/Sign) > Verdicts

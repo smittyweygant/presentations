@@ -1,0 +1,206 @@
+# governance — Teleprompter (smitty)
+Generated from `SPEAKER-NOTES.md` by `tools/teleprompter/build.py`. Edit the notes, not this file.
+
+---
+
+## Slide 00 — Title
+
+Hello, everyone. I'm Smitty, Field CTO at Akka.
+
+Today I'm going to walk you through how Akka approaches AI governance. This is an operating model, not a product tour. We'll break the governance problem into its elements, build it back up one principle at a time, and then show you what it looks like running.
+
+---
+
+## Slide 00b — AI regulations
+
+Why this matters now. Regulations are multiplying, and the penalties are large. Under the EU AI Act, a prohibited practice carries a fine of up to thirty-five million euros or seven percent of global annual turnover, whichever is higher.
+
+    Take social scoring, which the Act prohibits. Imagine a lender whose AI lowers a customer's credit limit because of what that customer posts on social media. That's a risk score built from social behavior, used against the customer to assess their credit risk. That practice warrants the top penalty tier.
+
+    The Act also requires providers of high-risk systems to keep technical documentation for ten years.
+
+		At the same time, most governance tools monitor AI systems from the outside. They report after something has happened. They can't enforce at the point where an agent calls a model or a tool.
+
+		So the questions are where enforcement lives, and how you prove it worked. The rest of this session answers both.
+
+---
+
+## Slide 01 — You define your AI risk posture as sets of controls
+
+The first principle. You define your AI risk posture as a set of controls.
+
+Every business already has a risk posture. It has regulatory duties, and it has corporate policy. Akka doesn't supply those. You decide them.
+
+What Akka does is turn those decisions into controls. A control is a discrete, enforceable check. You define controls independently of any one AI system, so governance and the agentic system are defined separately and managed separately.
+
+Once you have a set of controls, Akka enforces them consistently. The result is a posture you can measure.
+
+---
+
+## Slide 02 — Postures have a lifecycle
+
+The second principle. A posture has a lifecycle, and Akka manages it like software. It has versions, it has releases, and it has history.
+
+It starts with a risk profile, which we capture in a risk survey. The survey asks four kinds of questions.
+
+Intent: what is this system for, and who is accountable. Autonomy: what can it decide on its own, and when must a human step in. Boundaries: who can it affect, and what data and dependencies shape it. And Evidence: which regulations govern it, what evidence it must produce, and who attests to it.
+
+Your answers map to controls. Those controls are collected into a control matrix. The matrix is enforced on test systems and production systems. Then you measure how the posture is performing, and the verdicts and drift you find feed the next cycle.
+
+That's a loop, not a checklist. Rather than keep describing it, let me show it to you.
+
+---
+
+>>> I'll DEMO this in the Akka console: Define Risk, Identify Controls, Sign, Enforce, Measure <<<
+
+---
+
+## Slide 03 — There are only five types of controls
+
+The third principle is that there are five types of controls.
+
+You just watched a control get defined, signed, and enforced.
+
+A control is a discrete, provable check. It holds or it doesn't, and evidence supporting each event and verdict can be produced.
+
+Every obligation you have reduces to one of these types:
+
+A guardrail blocks or allows a call at a runtime boundary: before or after a model, a tool, an agent, or a memory call. For example, stopping a wire transfer that lacks dual sign-off.
+
+An evaluation measures and scores behavior that isn't deterministic. It runs against live agents or in test. For example, scoring responses weekly for parity drift.
+
+A human control covers the human-in-the-loop moments: approvals, halts, feedback and drift review. For example, a loan officer approves an adverse-action notice before it goes out.
+
+A gate is a release activity. It runs against documents or in pre-production to confirm a system is ready. For example, blocking a deploy that lacks a current bias-audit attestation.
+
+And a sanitizer redacts, masks, or strips data before it moves on. For example, removing an applicant's Social Security number before the model sees it.
+
+---
+
+## Slide 04 — Controls are created in three ways
+
+The fourth principle. Controls are created in three ways.
+
+First, Akka ships a corpus of two hundred twenty-six AI regulations, mapped to thirteen hundred sixty-nine controls. It covers the EU AI Act, SOC 2, GDPR, and the NIST AI Risk Management Framework, among others. Your risk survey answers select the controls that apply, and you can browse the corpus directly.
+
+Second, corporate policy. These are rules your enterprise has already written down, for example, no agent approves a refund over five hundred dollars without review. Corporate controls are inherited by every project, and you decide whether each one is required or optional.
+
+Third, a project can write its own, for a risk unique to that system, for example, this underwriting agent may never see an applicant's Social Security number.
+
+Once a control is in the bundle, it is enforced the same way, wherever it came from.
+
+---
+
+## Slide 05 — Groups of controls are placed into signed bundles
+
+The fifth principle. Groups of controls are placed into a signed bundle. We call that bundle the control matrix.
+
+For each corporate or custom control, you explicitly accept it, waive it, or remove it. When the mapping is clean, you sign. Signing creates a version: a record of exactly which controls make up that scope of checks.
+
+In this example, the loan origination assistant launches with the ability to answer borrower questions. The risk is disclosure accuracy, and version one carries twelve controls. It gains judgment and starts recommending approve or deny. Fair lending becomes a real risk, and version two carries thirty-four controls. Then it gains authority to initiate the wire transfer. Dual control becomes a risk, and version three carries fifty-one.
+
+Every version is kept, and you can compare any two to see how your posture changed. You roll forward. You don't roll back. A change creates a new version.
+
+One clarification. This signature is Akka versioning the set of controls. It isn't a human sign-off. If you want people to approve which controls go in, or to attest to a document, we connect that to your issue-tracking and development systems through hooks.
+
+When you deploy the bundle, the Akka runtime finds every place a control has to run and applies it. Your developers don't write extra code for it.
+
+---
+
+## Slide 06 — Every control execution produces a verdict
+
+The sixth principle. Every time a control executes, it produces a verdict. The control was upheld, it was violated, the result was inconclusive, or it errored.
+
+Verdicts are written to a tamper-evident store. It's the same store that holds the traces of the AI system itself: the conversations, the model calls, the tool calls. So controls and behavior sit side by side, and nothing is self-reported.
+
+Let me ask the console what is true of this system right now.
+
+>>> DEMO — Canvas: ask which controls apply and whether they held this week <<<
+
+That answer isn't a canned report. It was generated from the same ledger an examiner would query. And every verdict carries its control, its execution, and its evidence, so I can go one level down on any of them and see why it landed where it did.
+
+---
+
+## Slide 07 — Controls can execute in pre-production or production
+
+The seventh principle. Controls can execute in pre-production or in production, and some are checks on documents.
+
+Production is where Akka enforces guardrails, human-in-the-loop controls, sanitizers, and evals against running systems.
+
+Pre-production is where you run tests, evaluations, model analysis, and red teaming before a change goes live. Akka gives you test, eval, and red-team kits for this, and they produce verdicts the same way production does.
+
+How much you retest depends on the change. A model swap, an architecture change, a new data source, or a new jurisdiction calls for a full retest. A prompt or parameter change, a retrain, or vendor model drift calls for a targeted one. A bug fix, an ownership transfer, or a lapsed attestation needs a records update only.
+
+Documents are the third place. A gate can check that a required attestation is on file and still fresh.
+
+Notice what this does for your engineering teams. They can find out whether a system will pass governance while they are building it, not after it's built and sent to a review. Some controls can only be verified in production, a human escalation for example, but you can test those behaviors in pre-production too.
+
+Verdicts from all three places are merged into one view.
+
+---
+
+## Slide 07b — Compliance is observing the verdicts for a group of controls over time
+
+The eighth principle. Compliance is observing the verdicts for a group of controls over time.
+
+We've talked about controls and risk profiles. Compliance is the question you ask of them. Is my AI system compliant right now? And has it drifted over time?
+
+You can look at it by control, by regulation, or by bundle. How well do I satisfy this regulation? How have all the controls in my bundle done?
+
+A violation tells you something happened. It doesn't by itself mean you're out of compliance. What matters is that you can see it and act on it. And everything here can be exported as OpenTelemetry spans, so your alerts and dashboards can live in the observability tools you already run.
+
+---
+
+## Slide 08 — Drift is a pattern change in the verdict ledger
+
+The ninth principle. Drift is a pattern change in the verdict ledger.
+
+You don't need a separate drift detector. Take a single control and watch its verdicts over time. If it behaves differently, that's drift.
+
+Here, the PII redaction guardrail was upheld three weeks ago. Today it returns an error, because the classifier score fell outside its valid range and the control failed closed. The storage limitation gate was upheld, and today it's inconclusive, because its retention schedule aged past its freshness window.
+
+Same control, same system. Only time changed.
+
+The verdict shows me what changed. Replay lets me open the session behind it and see why.
+
+---
+
+## Slide 09 — Controls can be enforced on third-party agents
+
+The tenth principle. Controls can be enforced on third-party agents.
+
+So far we could have been talking about agents that run on Akka. Many of the agents you run don't. Akka's AI gateway routes inference traffic and optimizes it. If you steer a third-party agent's model and tool requests through the gateway, we can identify that agent and enforce controls on it directly.
+
+That covers most of what you need from guardrails, sanitizers, and evals on live traffic. Some controls, a human-in-the-loop escalation for example, need changes inside the third-party agent itself. For those, the agent sends its traces to Akka's ledger, so its behavior still lands in the same record as everything else.
+
+For an agent built on Akka, the controls run natively in the runtime.
+
+---
+
+## Slide 10 — Traces, tokens, and verdicts are recorded together
+
+The eleventh principle. Traces, tokens, and verdicts are recorded together.
+
+Every call is measured, by team, use case, and system. Whether an agent runs on Akka or its traffic comes through the gateway, the trace carries its token usage, its cost, and the verdicts that fired. It all lands in one data warehouse.
+
+Because it's all correlated, you can replay history, and you can see cost, performance, budget, and spend in the same place as governance.
+
+That gives you three things. Observe: every model call is measured. Scrutinize: each team sees its own system's spend, and you can set thresholds so a crossed line becomes an action. Compare: you can keep testing models against each other on cost and performance, against a registry of known models and their prices.
+
+Let me show you.
+
+>>> DEMO — Optimize → Spend: ask Canvas a cost question <<<
+
+---
+
+## Slide zz — Thank you
+
+In summary, that's the operating model. You define your posture as controls, and you manage it as software. There are five types of controls, from three sources, packaged in signed bundles. Verdicts record every execution across pre-production and production, and compliance and drift are read from those verdicts. The same controls reach third-party agents through the gateway, and traces, tokens, and verdicts land together.
+
+    Akka is one platform for your developers, your AI risk and security teams, your machine learning engineers, and your infrastructure engineers to build agentic systems.
+
+		Thank you.
+
+---
+
+Spoken words: about 1973. At 150 words a minute that is about 13 minutes, before demos.
