@@ -18,7 +18,10 @@ Notes format (the contract each deck's SPEAKER-NOTES.md follows):
   - Each "## " section contributes its heading and the indented paragraphs under
     "- **Script**:".
   - A line of three hyphens inside a script starts a new page.
-  - A line of the form ">>> ... <<<" is a demo marker and passes through.
+  - A line of the form ">>> ... <<<" is a demo marker and passes through. ">>> DEMO ... <<<"
+    opens a demo and ">>> BACK TO DECK <<<" closes it; words between them count as demo time.
+  - A line that is entirely "[like this]" is an on-screen cue. It passes through and is not
+    counted as spoken.
   - A "- **Teleprompter**: omitted" line skips the section.
   - {{presenter-intro}} becomes "I'm <first name>, <title>." for a presenter, taken from
     DECK_DIR/presenters/<presenter>.json ("CEO, Akka" is spoken as "CEO at Akka"), and
@@ -50,6 +53,24 @@ def presenter_intro(deck_dir, slug):
     return f"I'm {p['name'].split()[0]}, {title}."
 
 
+def count_words(script):
+    """Spoken words in a script, as (slide words, demo words). Markers and cues are not spoken."""
+    slide = demo = 0
+    in_demo = False
+    for line in script.splitlines():
+        s = line.strip()
+        if s.startswith('>>> DEMO'):
+            in_demo = True
+        elif s.startswith('>>> BACK TO DECK'):
+            in_demo = False
+        elif s and s != '---' and not (s.startswith('[') and s.endswith(']')):
+            if in_demo:
+                demo += len(s.split())
+            else:
+                slide += len(s.split())
+    return slide, demo
+
+
 def build(deck_dir, slug=None):
     deck = os.path.basename(os.path.abspath(deck_dir)).lower().replace('_', '-')
     stem = f'{deck}-{slug}' if slug else deck
@@ -59,7 +80,7 @@ def build(deck_dir, slug=None):
     md = [f'# {deck} — Teleprompter' + (f' ({slug})' if slug else '') + '\n',
           'Generated from `SPEAKER-NOTES.md` by `tools/teleprompter/build.py`. Edit the notes, not this file.\n']
     pages = []
-    total = 0
+    slide_words = demo_words = 0
     for section in re.split(r'^## ', text, flags=re.M)[1:]:
         heading, _, body = section.partition('\n')
         if re.search(r'^- \*\*Teleprompter\*\*: omitted', body, flags=re.M):
@@ -68,10 +89,15 @@ def build(deck_dir, slug=None):
         if not m:
             continue
         script = textwrap.dedent(m.group(1)).strip().replace('{{presenter-intro}}', intro)
-        total += len([w for w in script.split() if not w.startswith('>>>') and w not in ('<<<', '---')])
+        sw, dw = count_words(script)
+        slide_words += sw
+        demo_words += dw
         md.append(f'\n---\n\n## {heading.strip()}\n\n{script}\n')
         pages.extend(p.strip() for p in re.split(r'^---$', script, flags=re.M))
-    md.append(f'\n---\n\nSpoken words: about {total}. At 150 words a minute that is about {total // 150} minutes, before demos.\n')
+    total = slide_words + demo_words
+    md.append(f'\n---\n\nSpoken words: about {total} ({slide_words} on slides, {demo_words} in demos). '
+              f'At 150 words a minute that is about {slide_words // 150} minutes on slides and '
+              f'{demo_words // 150} in demos, plus time spent clicking.\n')
 
     out_dir = os.path.join(deck_dir, 'teleprompter')
     os.makedirs(out_dir, exist_ok=True)

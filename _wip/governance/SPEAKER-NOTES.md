@@ -6,8 +6,12 @@ Each section carries:
 - **Cue** — the visual/staging moment: what's on screen, when to tab-switch, when to click.
 - **Script** — the exact words to say, written for a teleprompter: plain sentences, numbers
   spelled as spoken, no stage directions inside the prose. A line of the form `>>> ... <<<`
-  marks a demo handoff, and a line of three hyphens (`---`) inside a script starts a new
-  teleprompter page. `{{presenter-intro}}` becomes the presenter's name and title from
+  marks a demo boundary, and a line of three hyphens (`---`) inside a script starts a new
+  teleprompter page. A line that is entirely `[like this]` is an on-screen cue: a click, a
+  tab switch, a pause. Everything else is speech. A demo sits inside the script of the slide
+  it follows. It opens with `>>> DEMO n — title <<<`, runs one page per beat (D1.1, D1.2, and
+  so on), and closes with `>>> BACK TO DECK <<<`. Each beat's click path and checks live in
+  `demos/`, under the same beat ID. `{{presenter-intro}}` becomes the presenter's name and title from
   `presenters/<name>.json`, or a generic line when no presenter is chosen. The files in
   `teleprompter/` are generated from these blocks, never edited by hand: `governance.md` and
   `governance.textream` (the file the Textream app opens, one page per slide), plus
@@ -17,7 +21,8 @@ Each section carries:
   freely than the script and still hit everything required.
 - **Sources** — where the copy is drawn from, so a future rev can trace it.
 
-Presenter mechanics (tab-switching, build status, fallbacks) live in `PRESENTER-RUNBOOK.md`.
+Demo click paths, checks and resets live in `demos/`. Environment setup, the deck build and
+recovery live in `PRESENTER-RUNBOOK.md`.
 
 Voice follows Tyler's walkthrough of 2026-10-05 (Obsidian: `Projects/Governance/Governance
 walkthrough 2026-10-05.md`). That file is a speech-to-text transcript with recognition
@@ -81,9 +86,9 @@ errors ("ACA" is Akka), so wording here is paraphrased from it, never quoted.
 
     The Act also requires providers of high-risk systems to keep technical documentation for ten years.
 
-		At the same time, most governance tools monitor AI systems from the outside. They report after something has happened. They can't enforce at the point where an agent calls a model or a tool.
+    At the same time, most governance tools monitor AI systems from the outside. They report after something has happened. They can't enforce at the point where an agent calls a model or a tool.
 
-		So the questions are where enforcement lives, and how you prove it worked. The rest of this session answers both.
+    So the questions are where enforcement lives, and how you prove it worked. The rest of this session answers both.
 
 
 - **Land**: the top penalty tier is for prohibited practices only — up to 35 million euros
@@ -129,7 +134,7 @@ errors ("ACA" is Akka), so wording here is paraphrased from it, never quoted.
 
 - **Cue**: categorization grid (Intent / Autonomy / Boundaries / Evidence) fades in, then
   the four lifecycle boxes with arrows. Trace both halves with the cursor. After the last
-  line, cue Demo 1 (`PRESENTER-RUNBOOK.md` §4.1), which walks the loop in the console.
+  line, Demo 1 (`demos/01-lifecycle.md`) walks the loop in the console.
 - **Script**:
 
     The second principle. A posture has a lifecycle, and Akka manages it like software. It has versions, it has releases, and it has history.
@@ -144,12 +149,97 @@ errors ("ACA" is Akka), so wording here is paraphrased from it, never quoted.
 
     ---
 
-    >>> I'll DEMO this in the Akka console: Define Risk, Identify Controls, Sign, Enforce, Measure <<<
+    [>>> DEMO 1 — Identify Risk <<<]
+
+    [D1.1 · Console tab]
+
+    This is the Akka Console. It provides a unified view of your agentic system, including the governance for this project.
+
+    The left nav has three sections. Specify is where a system's specs, docs, and exit conditions live. Verify is where risk, controls, and every enforcement outcome are tracked, and that's most of what we'll use. Optimize is cost and models, and we'll get to it later.
+
+    ---
+
+    [D1.2 · Verify > Risk]
+
+    Verify opens into Risk, Controls, Evaluations, Human, Activity, and Compliance. We start at Risk.
+
+    This is the live risk survey for this system. It's partway through, which is the honest state of an intake in flight. The console groups the questions into seven sections. They're the same four ideas from the slide, in finer detail.
+
+    [Answer one question]
+
+    That's step one, Define Risk. One answer, and controls are derived from it, each tied to an article in the regulatory corpus.
+
+    ---
+
+    [D1.3 · Controls > Corpus. Filter Applies. Expand a row]
+
+    Step two, Identify Controls. This is the corpus: two hundred twenty-six regulations and thirteen hundred sixty-nine controls. [Click Applies filter] The filter shows the ones that apply to this system, based on the answer I just gave.
+
+    Every control carries the exact citation it comes from.
+
+    Let's look at one from the EU
+
+    [Open first EU control, read the citation]
+
+    The corpus is versioned and published my Akka, so when it is updated, we know exactly which controls to re-verify, because the citation is live data.
+
+    ---
+
+    [D1.4 · Bundle tab. Accept one]
+
+    The console calls the set of controls in force a bundle. Technically we refer to it as the control matrix. It's the same thing.
+
+    Candidates is everything that could apply. In the bundle is what a decision maker agreed is in scope. I'll accept one.
+
+    That's Identify Controls: You determine what's in scope based on the business' ability to apply the controls.
+
+    ---
+
+    [D1.5 · Sign tab]
+
+    Step three, Sign. Signing records which controls were accepted or waived, the survey they came from, and the corpus version. The result is a new version: a permanent record of exactly which controls were in scope.
+
+    [Click Sign]
+
+    There's the new version. One caveat, which the page states itself. Signing records scope. It doesn't test the controls, and it isn't an approval by a regulator or an auditor.
+
+    ---
+
+    [D1.6 · Activity > Verdicts]
+
+    Step four, Enforce. Every control in the bundle that applies at runtime is enforced on the requests it covers, and each execution lands here as a verdict, newest first.
+
+    Most are upheld, and a few are violations. The console labels those Breached. We also refer to these as violations.
+
+    [Point at a Breached row and an Error row]
+
+    For reference, this sample project's history is simulated, however it reflects the activity of a real system and captures the source of every verdict.
+
+    We'll come back to this ledger in detail later.
+
+    ---
+
+    [D1.7 · Compliance]
+
+    Step five, Measure. Compliance reads those same verdicts and asks whether the controls in force are satisfied, now and over time.
+
+    This project isn't fully compliant today, and the page says exactly which controls and why. That's the honest position, and it's what a measured posture looks like.
+
+    That ledger is the governance posture from the first slide. Enforced, measured, provable. Nothing here was asserted.
+
+    [D1.8 · Deck tab]
 
 - **Land**: posture is managed as software — versions, releases, history; four risk-profile
   categories; answers map to controls, controls form the control matrix, the matrix is
   enforced and measured; verdicts and drift restart the loop; hands off directly into
-  Demo 1, so don't let this stand as a diagram.
+  Demo 1, so don't let this stand as a diagram. Demo 1 lands five named steps: Define Risk,
+  Identify Controls, Sign, Enforce, Measure. Don't quote control counts from the console;
+  the demo project is a mature one and Slide 05 tells a different, illustrative story.
+- **Fallback**: The console isn't responding, so I'll describe it. You answer a risk survey,
+  and controls are derived from your answers, each cited to the regulation it comes from. An
+  officer accepts the ones in scope. The set is signed as a version. Every execution lands in
+  a ledger, and compliance reads that ledger over time. That's the loop, and the next slides
+  name each part.
 - **Sources**: Tyler's walkthrough; console Verify → Risk survey (69 questions, seven
   categories, plain language); lifecycle graphic.
 
@@ -203,7 +293,7 @@ errors ("ACA" is Akka), so wording here is paraphrased from it, never quoted.
 
     Third, a project can write its own, for a risk unique to that system, for example, this underwriting agent may never see an applicant's Social Security number.
 
-    Once a control is in the bundle, it is enforced the same way, wherever it came from.
+    Once a control is accepted in the bundle, it is uniformly enforced.
 
 - **Land**: three sources — Akka corpus, corporate policy, project; corpus is 226
   regulations and 1,369 controls; each control traces to the exact requirement in the
@@ -223,20 +313,21 @@ errors ("ACA" is Akka), so wording here is paraphrased from it, never quoted.
 
     The fifth principle. Groups of controls are placed into a signed bundle. We call that bundle the control matrix.
 
-    For each corporate or custom control, you explicitly accept it, waive it, or remove it. When the mapping is clean, you sign. Signing creates a version: a record of exactly which controls make up that scope of checks.
+    For each corporate or custom control, you explicitly accept it, waive it, or remove it. When the mapping is clean, you sign. Signing records which controls were accepted or waived, the survey they came from, and the corpus version. That creates a version: a permanent record of exactly which controls make up that scope of checks.
 
-    In this example, the loan origination assistant launches with the ability to answer borrower questions. The risk is disclosure accuracy, and version one carries twelve controls. It gains judgment and starts recommending approve or deny. Fair lending becomes a real risk, and version two carries thirty-four controls. Then it gains authority to initiate the wire transfer. Dual control becomes a risk, and version three carries fifty-one.
+    In this simple example, the loan origination assistant launches with the ability to answer borrower questions. The risk is disclosure accuracy, and version one carries twelve controls. It gains judgment and starts recommending approve or deny. Fair lending becomes a real risk, and version two carries thirty-four controls. Then it gains authority to initiate the wire transfer. Dual control becomes a risk, and version three carries fifty-one.
 
-    Every version is kept, and you can compare any two to see how your posture changed. You roll forward. You don't roll back. A change creates a new version.
+    Every version is kept, and you can compare any two to see how your posture changed. A change creates a new version.
 
-    One clarification. This signature is Akka versioning the set of controls. It isn't a human sign-off. If you want people to approve which controls go in, or to attest to a document, we connect that to your issue-tracking and development systems through hooks.
+    Signing records what is in scope. It doesn't test the controls, and it isn't an approval by a regulator or an auditor.
 
     When you deploy the bundle, the Akka runtime finds every place a control has to run and applies it. Your developers don't write extra code for it.
 
 - **Land**: bundle equals control matrix; accept, waive, or remove each non-corpus control
   before signing; signing creates a version; capability growth drives risk growth drives
-  matrix growth (12 → 34 → 51); versions are compared, rolled forward only, never erased;
-  signing is not human approval — human review attaches through hooks; Akka is the runtime
+  matrix growth (12 → 34 → 51); every version is kept and any two can be compared;
+  signing records scope (accepted or waived controls, survey, corpus version) and is not a
+  test or an outside approval; Akka is the runtime
   for both the AI system and the controls, so it injects controls without developer work.
 - **Sources**: Tyler's walkthrough; `BundleSigner.java:48-110`; `demo/governance/signed/`.
 - **Do NOT claim**: cryptographic attestation, RFC 3161 trusted timestamping, or a
@@ -253,22 +344,51 @@ errors ("ACA" is Akka), so wording here is paraphrased from it, never quoted.
 ## Slide 06 — Every control execution produces a verdict
 
 - **Cue**: verdict tiles and mini table on screen, then tab-switch to the console, Canvas
-  (`PRESENTER-RUNBOOK.md` §4.2). Tile numbers are illustrative.
+  (`demos/02-canvas.md`). Tile numbers are illustrative.
 - **Script**:
 
     The sixth principle. Every time a control executes, it produces a verdict. The control was upheld, it was violated, the result was inconclusive, or it errored.
 
-    Verdicts are written to a tamper-evident store. It's the same store that holds the traces of the AI system itself: the conversations, the model calls, the tool calls. So controls and behavior sit side by side, and nothing is self-reported.
+    Verdicts are written to an immutable store. It's the same store that holds the traces of the AI system itself: the conversations, the model calls, the tool calls. So controls and behavior sit side by side, and nothing is self-reported.
 
-    Let me ask the console what is true of this system right now.
+    Let me ask the console what is true of this system.
 
-    >>> DEMO — Canvas: ask which controls apply and whether they held this week <<<
+    ---
 
-    That answer isn't a canned report. It was generated from the same ledger an examiner would query. And every verdict carries its control, its execution, and its evidence, so I can go one level down on any of them and see why it landed where it did.
+    [>>> DEMO 2 — Canvas <<<]
+
+    [D2.1 · Console tab > Canvas]
+
+    Instead of a static dashboard, we ask the platform directly, and it builds the view.
+
+    ---
+
+    [D2.2 · First starter question]
+
+    I'll start with a plain question: which controls apply to this system.
+
+    [Type the follow-up]
+
+    Now the one that matters. Which of those have been violated.
+
+    ---
+
+    [D2.3 · Point at a violation]
+
+    There's a live violation, with its control, its environment, and the date it happened.
+
+    [Deck tab]
+
+    [>>> BACK TO DECK <<<]
 
 - **Land**: verdict = outcome of one control execution — upheld, violated, inconclusive, or
-  error; stored tamper-evidently, co-resident with the AI system's own traces; Canvas answer
-  is generated live; one live violation must be visible on screen.
+  error; stored in an immutable store, co-resident with the AI system's own traces; Canvas answer
+  is generated live; one live violation must be visible on screen. The ledger's newest
+  verdicts are from 30 September, so never ask for "this week."
+- **Fallback**: The console isn't responding, so here is what you would see. You ask, in plain
+  language, which controls apply and which were violated. The answer comes from the same
+  ledger an examiner would query, and each verdict points to its control, its execution, and
+  its evidence.
 - **Sources**: Tyler's walkthrough; console Verify → Verdicts.
 - **Slide text to fix**: Tyler asked for "violation" in place of "breach," because breach
   reads as data breach. The slide still says "breached" in the subtitle and "Breached /
@@ -283,7 +403,7 @@ errors ("ACA" is Akka), so wording here is paraphrased from it, never quoted.
   (full / targeted / records only).
 - **Script**:
 
-    The seventh principle. Controls can execute in pre-production or in production, and some are checks on documents.
+    The seventh principle. Controls can execute in pre-production or in production, and some conduct checks on documents.
 
     Production is where Akka enforces guardrails, human-in-the-loop controls, sanitizers, and evals against running systems.
 
@@ -293,7 +413,7 @@ errors ("ACA" is Akka), so wording here is paraphrased from it, never quoted.
 
     Documents are the third place. A gate can check that a required attestation is on file and still fresh.
 
-    Notice what this does for your engineering teams. They can find out whether a system will pass governance while they are building it, not after it's built and sent to a review. Some controls can only be verified in production, a human escalation for example, but you can test those behaviors in pre-production too.
+    Consider what this does for your engineering teams. They can find out whether a system will pass governance while they are building it. Today, most systems can only be validated after it is built and sent for a review. Some controls such as a human escalation can only be verified in production, but you can test the functionality in pre-production too.
 
     Verdicts from all three places are merged into one view.
 
@@ -334,7 +454,7 @@ errors ("ACA" is Akka), so wording here is paraphrased from it, never quoted.
 ## Slide 08 — Drift is a pattern change in the verdict ledger
 
 - **Cue**: query at the top, then two controls compared at two times. If time allows, run
-  the same query live in Verify → Verdicts and open Replay (`PRESENTER-RUNBOOK.md` §4.3).
+  the same query live in Verify → Verdicts and open Replay (`demos/03-drift-replay.md`).
 - **Script**:
 
     The ninth principle. Drift is a pattern change in the verdict ledger.
@@ -347,8 +467,46 @@ errors ("ACA" is Akka), so wording here is paraphrased from it, never quoted.
 
     The verdict shows me what changed. Replay lets me open the session behind it and see why.
 
+    [>>> DEMO 3 — Ledger / Drift / Replay <<<]
+
+    ---
+
+    [D3.1 · Verdicts > By control. Point at the Certificate validity trend]
+
+    The numbers on the slide were illustrative. Here is a real verdict from this ledger: a control that checks how much validity is left on a certificate.
+
+    Each bar in the trend is a verdict. Green is upheld, and at the end it turns red.
+
+    [All verdicts. Filter to Certificate validity]
+
+    Filtered to that one control, newest first: upheld for weeks, then violations on the last two days.
+
+    ---
+
+    [D3.2 · Open the latest breached verdict]
+
+    The newest says the certificate has eighty-eight days of validity left, inside the ninety-day renewal band. Same control, same system. Only time changed.
+
+    That's drift, and it's in the ledger with its reason. No separate detector.
+
+    ---
+
+    [D3.3 · Replay > Traces. Open a trace]
+
+    The verdict shows what changed. Replay is how I get from a record to the session behind it: I can step through what the agent did, and where.
+
+    [Deck tab]
+
+
 - **Land**: drift = a change in one control's verdicts over time; same ledger, no separate
   detector; verdicts show what, Replay shows why; the change is a prompt to investigate.
+- **Slide examples**: the PII redaction and storage limitation figures on the slide are
+  illustrative; the demo ledger doesn't hold that pair. The demo uses certificate validity,
+  which drifts with time: upheld in August and September, then breached on 2026-09-28 and 29
+  (88 days left at the newest). Simulated verdicts can't be opened in Replay from the verdict, so Replay
+  is shown on a trace.
+- **Fallback**: Skip the demo and say: the verdict shows what changed, and Replay opens the
+  session behind it. Go straight to the next slide.
 - **Sources**: Tyler's walkthrough; console Verify → Verdicts and Replay. Grounding
   examples: "PII redaction at model boundary" (Error, "score outside 0 to 1… failed
   closed"); "Storage limitation" (Inconclusive, "retention schedule is 410 days old, past
@@ -358,7 +516,10 @@ errors ("ACA" is Akka), so wording here is paraphrased from it, never quoted.
 
 ## Slide 09 — Controls can be enforced on third-party agents
 
-- **Cue**: two rows — Built on Akka / Everything else — plus the in-agent note.
+- **Cue**: side-by-side table, Built on Akka against Third-party agent. Row one, model and tool
+  calls: enforced natively, or enforced after routing through the gateway. Row two, other
+  controls such as human escalation: governed by the platform, or reported by the agent as
+  traces for Akka to record.
 - **Script**:
 
     The tenth principle. Controls can be enforced on third-party agents.
@@ -367,7 +528,7 @@ errors ("ACA" is Akka), so wording here is paraphrased from it, never quoted.
 
     That covers most of what you need from guardrails, sanitizers, and evals on live traffic. Some controls, a human-in-the-loop escalation for example, need changes inside the third-party agent itself. For those, the agent sends its traces to Akka's ledger, so its behavior still lands in the same record as everything else.
 
-    For an agent built on Akka, the controls run natively in the runtime.
+    For an agent built on Akka, the controls run natively in the runtime, and the platform governs the rest, human escalation included.
 
 - **Land**: gateway routes inference and optimizes; routing a third-party agent's model and
   tool calls through it lets Akka identify the agent and enforce controls; most guardrails,
@@ -390,7 +551,7 @@ errors ("ACA" is Akka), so wording here is paraphrased from it, never quoted.
 ## Slide 10 — Traces, tokens, and verdicts are recorded together
 
 - **Cue**: Observe / Scrutinize / Compare, then tab-switch to the console, Optimize →
-  Spend (`PRESENTER-RUNBOOK.md` §4.4). Fall back to narrating the page if the stack isn't
+  Spend (`demos/04-optimize.md`). Fall back to narrating the page if the stack isn't
   seeded.
 - **Script**:
 
@@ -404,7 +565,27 @@ errors ("ACA" is Akka), so wording here is paraphrased from it, never quoted.
 
     Let me show you.
 
-    >>> DEMO — Optimize → Spend: ask Canvas a cost question <<<
+    [>>> DEMO 4 — Optimize: spend, question in Canvas <<<]
+
+    ---
+
+    [D4.1 · Optimize > Spend > Tokens]
+
+    Every token and every model, divided by use case, tag, and caller. This is cost, in the same console as governance.
+
+    ---
+
+    [D4.2 · Canvas. Ask which models we pay for]
+
+    And I don't have to build a report. I ask: which models are we paying for.
+
+    [Wait for the answer]
+
+    That's the same record we've been reading all session, now showing cost beside the verdicts.
+
+    [Deck tab]
+
+
 
 - **Land**: one data warehouse for traces, tokens, and verdicts; spend sliceable by team,
   department, use case, system; thresholds make spend actionable; periods can be compared,
@@ -412,8 +593,14 @@ errors ("ACA" is Akka), so wording here is paraphrased from it, never quoted.
   continuous comparison of models on cost and performance.
 - **Sources**: Tyler's walkthrough; console Optimize → Spend;
   `enablement/03-solution-akka-optimize.md:62-71`.
+- **On screen**: the console build shows Optimize → Spend, Routing, Models and Training. Spend
+  has Breakdown, Tokens, Compare, Savings and Prices tabs. The slide's budget thresholds have no
+  console view yet, so D4.1 shows spend divided by model, use case, tag, and caller and nothing
+  more. Don't look for a budget or a change record.
 - **Dependency**: a live query needs the `optimize-local` synthetic stack seeded with
-  traffic.
+  traffic and `python3 seed.py history`, with Spend's Period set to 7 or 30 days.
+- **Fallback**: Skip the console and say: every call is measured by use case and caller, and
+  the cost sits in the same record as the verdicts. Then go to the next slide.
 
 ---
 
@@ -426,7 +613,7 @@ errors ("ACA" is Akka), so wording here is paraphrased from it, never quoted.
 
     Akka is one platform for your developers, your AI risk and security teams, your machine learning engineers, and your infrastructure engineers to build agentic systems.
 
-		Thank you.
+    Thank you.
 
 - **Land**: recap in slide order; one platform for developers, risk, security, ML, and
   infrastructure teams; open the floor.

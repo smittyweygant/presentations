@@ -1,8 +1,9 @@
 # AI Governance Demo — Presenter Runbook
 
-*Desktop / browser instructions for driving the deck + demos as if presenting live.
-Companion to `README.md` (spec), `SPEAKER-NOTES.md` (talk-track), and `teleprompter/`
-(the script text alone, generated from the notes; load `governance-smitty.textream` in Textream).*
+*The demo environment and the deck build: what to run, what to open, and how to recover.
+Companion to `README.md` (spec), `SPEAKER-NOTES.md` (talk-track), `teleprompter/` (the script
+text alone, generated from the notes; load `governance-smitty.textream` in Textream), and
+`demos/` (click sheets, checks, and resets for each demo).*
 
 Duration budget: ~45 min presentation + ~15 min Q&A (adjust to slot).
 
@@ -43,6 +44,11 @@ python3 builder/build.py --mode overview --presenter <name>
 
 Output: `generated/overview/index.html` (~60 KB).
 
+While editing slides, run `node dev-server.mjs` instead. It serves the deck at
+`http://127.0.0.1:8765/index.html`, rebuilds when anything under `slides/`, `shell/`,
+`builder/` or `presenters/` changes, and reloads open pages. Options: `--port`,
+`--presenter` (default `smitty`), `--mode`. It refuses to start if the port is taken.
+
 ---
 
 ## 1. Desktop layout — what to have open when the session starts
@@ -52,8 +58,8 @@ Arrange these BEFORE joining the call. Use ⌘⇥ / Mission Control to move betw
 | # | Window | State | Position |
 |---|---|---|---|
 | **1** | **Chrome — deck tab** at `file:///.../_wip/governance/generated/overview/index.html` | Fullscreen (F key) | Primary display |
-| **2** | **Chrome — Console tab** at `http://127.0.0.1:9889` — pre-loaded to **Canvas, left-nav sections collapsed** (the audience's first view of the console — see §4.1 beat 1). **This one tab carries the entire console track**: Demo 1 (Verify → Risk/Controls/Verdicts, after Slide 02) and the Canvas/Verdicts-Replay/Optimize walkthroughs later. There's no separate workbench-svc tab — `workbench-svc` is a service this console discovers and surfaces natively, not a page of its own. | Regular tab | Same window as (1) |
-| **3** | **Terminal — service log** running the workbench-svc (see §2.1) — still a separate process on port 8730; the console discovers and displays it, but it must be running | 40-col wide, visible | Second display (or hidden until needed) |
+| **2** | **Chrome — Console tab** at `http://localhost:9889`, on **Canvas with the left nav collapsed**. This one tab carries all four demos (`demos/`). | Regular tab | Same window as (1) |
+| **3** | **Terminal — service logs** (workbench-svc on `:8730`, the trace ledger on `:9096`), or `/tmp/governance-demo-logs/` when started with `demo-env.sh`. | 40-col wide, visible | Second display (or hidden until needed) |
 | **4** | **VS Code / editor** with `SPEAKER-NOTES.md` open | Second display or ⌘⇥ target | Secondary display |
 
 Rule of thumb: **only the deck tab is ever shared to the room**. The console gets its own
@@ -73,7 +79,7 @@ services. `./demo-env.sh status` reports what is answering and `./demo-env.sh do
 all. Logs go to `/tmp/governance-demo-logs/`. Allow about 8 minutes cold. The sections below
 are the manual steps it replaces.
 
-### 2.1 Start the Demo 1 backing service (workbench-svc)
+### 2.1 Start workbench-svc
 
 **Terminal window 3** (long-running):
 
@@ -90,48 +96,20 @@ curl -s http://127.0.0.1:8730/api/overview | python3 -m json.tool | head -20
 ```
 
 Should print JSON with a `matrix_id` and control counts. **If it doesn't, do NOT go
-live** — see §5.1 recovery. Nothing is ever presented at `127.0.0.1:8730` directly — this
-process just has to be up before the console starts (§2.5) so the console can discover it
-and serve its data under Verify → Risk/Controls/Verdicts. Start this *before* §2.5.
+live** — see §4.1 recovery. Nothing is ever presented at `127.0.0.1:8730` directly. Start it
+*before* §2.5 so the console daemon discovers it and lists it under Services. The Verify pages
+read the `loan-origination` sample project instead (see `demos/README.md`).
 
-### 2.2 Smoke-test Demo 1 in the console (2 min)
+### 2.2 Smoke-test the demos
 
-Open **Chrome tab 2** at `http://127.0.0.1:9889` (console must be running — §2.5). Click
-through each of these once, all inside the console:
+Each demo has its own smoke test in `demos/`. Run `demos/01-lifecycle.md` (2 min) before
+dial-in; it covers the Verify pages every demo uses. Any FAIL means escalate before dial-in.
+**Every Accept and Sign click is a persistent write**, so smoke tests never click them.
 
-1. **Verify → Risk.** Page loads with a risk survey for the loaded project. **PASS if it
-   loads immediately with no error banner** and at least one question already has an
-   answer (confirms demo content is loaded, not a blank project).
-2. Answer one unanswered question. **PASS if the "answered" counter above the survey tabs
-   increments.**
-3. **Verify → Controls → Corpus.** Filter the **In this project → Applies** facet (left
-   rail). Expand any row's caret. **PASS if a citation panel opens** showing the source
-   framework/article text.
-4. **Verify → Controls → Bundle.** Confirm the **Candidates / In the bundle** tab split
-   renders and an "accepted" counter is visible. Do **not** click Accept during this smoke
-   test — every click is a real, persistent write against the demo project; save
-   Accept/Sign actions for the dry run or the live session, not a repeatable smoke test.
-5. **Verify → Controls → Sign.** Confirm the "Signing does not attest to any of the
-   following" list renders and the **Signed bundles** table below has at least one row.
-6. **Verify → Verdicts.** Confirm the ledger loads with verdicts, newest first, and a mix
-   of **Upheld / Breached / Error** conclusions is visible without changing filters. (The
-   console may still label violations "Breached"; say "violation" aloud.)
+### 2.3 Stage the console tab
 
-*Any FAIL = escalate before dial-in; do not present Demo 1 broken.* **Every Accept/Sign
-click in the real session is a live, persistent write** — counters will read one higher
-after every rehearsal and after the real thing. Re-pull live numbers before quoting any
-count out loud; don't trust what's written in this runbook or the slides.
-
-### 2.3 Stage Chrome tab 2 on Canvas, nav collapsed
-
-Demo 1 and the Canvas/Verdicts-Replay/Optimize track share one tab and one smoke test
-(§2.2 covers both), but the audience's first view of this tab matters — they've never seen
-the console before. After §2.2 finishes (it leaves the tab on whatever Verify page was
-tested last), navigate back to **Canvas** and collapse the **Specify** / **Verify** /
-**Optimize** nav sections if any are expanded, so the left nav shows only its top-level
-section names. That's the frame Demo 1's beat 1 (§4.1) opens on and narrates live — don't
-pre-open Verify or pre-click into Risk ahead of time, the whole point of beat 1 is the
-presenter doing that expansion on camera while explaining it.
+Chrome tab 2 starts every demo on **Canvas with the left nav collapsed**. Each demo file in
+`demos/` names its end state, which is the next demo's start state.
 
 ### 2.4 Load the deck fullscreen
 
@@ -143,7 +121,7 @@ name/title.
 ### 2.5 Start the local console (Specify / Verify / Optimize / Canvas)
 
 The console lives in `~/akka/akka-console-ai-canvas` (Tyler's repo) and drives a complete
-local Akka console — Specify, Verify (Controls/Risk/Traces/Replay/Verdicts), Optimize, and
+local Akka console — Specify, Verify (Controls/Risk/Traces/Replay/Verdicts), Optimize (Spend with Breakdown, Tokens, Compare, Savings and Prices tabs; Routing; Models; Training), and
 the **Canvas** NL-question flow that backs the live-query demo beat.
 
 **One-time machine setup** (skip once already done on a given machine):
@@ -187,10 +165,9 @@ The daemon keeps registered services in memory and has no unregister. A service 
 from another project (for example a customer demo) stays listed as Unavailable until the
 daemon restarts, which is why the `akka local stop` above is not optional.
 
-Open **`http://localhost:9889`**. Left nav: Dashboard / **Canvas** / Services / Specify
-(Specs, Docs, Auditors, Exit conditions) / Verify (Risk, Controls, Evaluations, Red
-teaming, Traces, Replay, Verdicts, Compliance). Canvas ships starter questions — good for
-a first smoke test.
+Open **`http://localhost:9889`**. Left nav: Dashboard / **Canvas** / Services / Agents / Specify / Verify (Risk, Controls,
+Evaluations, Human, Activity with Traces, Conversations, Verdicts and Replay, Compliance) /
+Optimize. Canvas ships starter questions — good for a first smoke test.
 
 **`optimize-local` synthetic stack** backs the Optimize pages. Bring it up from a cold
 machine:
@@ -210,7 +187,13 @@ cd ~/akka/akka-console-ai-canvas/optimize-local
 python3 stack.py up                       # stub backends + agentgateway
 python3 stack.py services-direct --discover   # 6 services, ~1-2 min cold
 python3 seed.py all                       # catalog, routing, training, ~7 min
+python3 seed.py history                   # 35 days of past usage, so 7- and 30-day Spend fills at once
 ```
+
+`history` needs nexus on branch `local/trace-hooks-new` (the import route is not on
+`local/trace-hooks`) and a portfolio store whose `catalog-v1` is dated 36 days back. If it stops
+and says the price catalog starts too late, stop portfolio, delete `data/db/portfolio-db.mv.db`,
+restart it, and run `python3 seed.py catalog-v1` before `history`.
 
 Then restart `gateway-router` **without** discovery (discovery-on grows its H2 file fast
 and is only needed for the seed's `discovery`/`manifest`/`traffic` steps):
@@ -232,8 +215,15 @@ python3 check.py                          # verify — every Optimize-page comma
 ```
 
 Spend pages read "Not measured" / 0 exchanges until traffic has run long enough to
-complete a conversation (5 idle minutes) and cross into the next whole UTC hour — this is
-expected, not a failure.
+complete a conversation (5 idle minutes) and cross into the next whole UTC hour. Live traffic is
+expected to wait; the `history` step above fills the 7- and 30-day periods straight away, so set
+the Period to 7 or 30 days for the demo. A period that overlaps days the stack ran live reads
+"incomplete" and shows its figures anyway.
+
+If Spend stays empty after the hour, check `logs/capture-refinery.log` for
+`is not in bucket gateway-router-capture; recording the hole`. That means gateway-router and
+capture-refinery are writing to different folders. Both take the folder from
+`OPTIMIZE_LOCAL_DATA`, which `stack.py` sets; a conf file with a hard-coded path breaks it.
 
 **If the Optimize page shows a JWT / token-validation error**: the tab's Environment
 dropdown (top right, next to Period) is on a real hosted cluster profile instead of
@@ -241,7 +231,7 @@ dropdown (top right, next to Period) is on a real hosted cluster profile instead
 `optimize-local` first among any "optimize"-named keys
 (`curl -s http://localhost:9889/api/companion/profiles`).
 
-### 2.6 Start the trace ledger (Verify → Traces/Replay backing service)
+### 2.6 Start the trace ledger (Verify → Activity backing service)
 
 `samples/trace-ledger` is a separate Akka service — the simulated trace and
 human-oversight store behind Verify → Traces, Replay, and the Agents directory. It is
@@ -283,170 +273,19 @@ not a build failure.
 
 ---
 
-## 3. Slide-by-slide walk
+## 3. Demos and run of show
 
-Read talk-tracks from `teleprompter/governance-<presenter>.textream` (cue, land, and sources are in `SPEAKER-NOTES.md`).
-This table is just cues + timing. Word budgets are enforced (≤70 words visible per slide) so
-the audience has time to look at *you*, not the screen. Slide numbers below are the folder
-numbers in `slides/`, which the demo beats in §4 also use.
-
-| # | Slide title | Time | Key cue / action |
-|---|---|---|---|
-| 00 | Title | 1 min | Operating model, not a product tour. |
-| 00a | Customer requirements | 2 min | Summarize the asks in order; promise to point back. Customer copy only. |
-| 00b | AI regulations | 1 min | Why now: top penalty tier is for prohibited practices (social scoring example), outside-in tools. |
-| 01 | You define your AI risk posture as sets of controls | 2 min | Decide / Define / Enforce rows. |
-| 02 | Postures have a lifecycle | 3 min | Trace the categorization grid and the lifecycle boxes. Then go straight into Demo 1 (§4.1) — **name each step as the console does it.** |
-| 03 | There are only five types of controls | 3 min | Recap, not a cold definition — "you just watched these." One example per type. No new demo. |
-| 04 | Controls are created in three ways | 2 min | Corpus (226 regulations, 1,369 controls), corporate, project. |
-| 05 | Groups of controls are placed into signed bundles | 3 min | Control matrix 12 → 34 → 51. Signing is versioning, not human sign-off; roll forward only. |
-| 06 | Every control execution produces a verdict | 3 min | Upheld / violated / inconclusive / error, tamper-evident store. Canvas walkthrough live (§4.2). |
-| 07 | Controls can execute in pre-production or production | 3 min | Documents, pre-production (full / targeted / records only), production. Engineers learn early. |
-| 07b | Compliance is observing the verdicts… | 1 min | By control, regulation, bundle. A violation is not automatic non-compliance. |
-| 08 | Drift is a pattern change in the verdict ledger | 2 min | Same control, two times. Verdicts/Replay live if time allows (§4.3). |
-| 09 | Controls can be enforced on 3rd party agents | 2 min | Gateway; be precise: "most controls," not all. Human-in-the-loop needs agent changes. |
-| 10 | Traces, tokens, and verdicts are recorded together | 2 min | Observe / Scrutinize / Compare. Optimize walkthrough live (§4.4). |
-| zz | Thank you | 1 min | Recap in slide order; open the floor. |
-
-**Total**: ~31 min speaking, plus the demo beats in §4 (Canvas and Optimize target ~3 and
-~2 min; Demo 1 per §4.1). Fits a 45-min slot with ~10 min for Q&A.
-
-The appendix demo slide is no longer in the build.
+The slide-by-slide run of show, timings, click sheets, and per-demo fallbacks are in
+`demos/README.md`. The words are in `SPEAKER-NOTES.md` and on the prompter.
 
 ---
 
-## 4. Demo runbooks
+## 4. Recovery from common failure modes
 
-### 4.1 Demo 1 — the lifecycle, live, entirely in the console: Define Risk → Identify
-Controls → Sign → Enforce → Measure *(after Slide 02)*
+### 4.1 Workbench-svc won't start (symptom: `workbench-svc` missing or Unavailable under Services)
 
-**Reworked 2026-10-01**: this demo used to run against a standalone `workbench-svc`
-browser tab (`127.0.0.1:8730`) for steps 1–3, then tab-switched to the console for a
-15-second glimpse of steps 4–5. That standalone tab is gone — the same risk-survey and
-control data now live natively inside the console itself (Verify → Risk/Controls/
-Verdicts), because `workbench-svc` is a discovered service the console surfaces directly.
-**All five steps now run in one tab, as one continuous left-nav walk** — no tab-switch
-mid-demo, just clicks down the Verify section. The backing process (§2.1) still has to be
-running; it just isn't presented on its own anymore.
-
-**Why this beat exists**: Slide 02 shows the lifecycle abstractly. This demo is
-where the audience sees each step happen on a real system, by name, before any later slide
-formalizes it — Slide 03 onward recap and define what was just watched, they don't
-introduce it cold. Don't skip ahead to "control" vocabulary before this beat runs.
-
-**Precondition**: workbench-svc up (§2.1), console up (§2.5), §2.2 smoke test passed. Tab 2
-reachable — leave it wherever §2.3 left it (Canvas, nav collapsed); this beat starts with
-an explicit nav-driven landing, not a pre-scrolled frame.
-
-**Beats (target ~6 min)**:
-
-1. **Tab-switch to Tab 2 (console).** Lands on **Canvas**, left-nav sections collapsed —
-   the audience has not seen this screen before, so orient them to the chrome itself before
-   doing anything with it. Say: "This is the Akka console — the actual governance system
-   running this project, not a slide about it." Point down the collapsed left nav without
-   opening anything yet: "Three sections: **Specify** is where the specs, docs, and exit
-   conditions for this system live; **Verify** is where risk, controls, and every
-   enforcement outcome get tracked — that's most of what we'll use; **Optimize** is cost
-   and model management, for later." Don't linger on Canvas itself — that walkthrough is
-   its own beat later (§4.2); this is purely "here's the map" before stepping into Verify.
-2. **Click to open Verify, then click Risk.** Narrate the click itself, since this is the
-   first time the audience sees the nav expand: "Verify" — click — "opens into Risk,
-   Controls, Evaluations, Red teaming, Traces, Replay, Verdicts, Compliance. We start at the
-   top." Click **Risk**. Say: "This is the live risk survey for this system." Point at the
-   survey progress indicator — don't reset or restart it, just note it's mid-flight, which
-   is the honest state of an in-flight intake. **Answer one unanswered question.** **Name
-   the step**: "That's step one — Define Risk. One answer, controls auto-derived, sourced
-   by article from the regulatory corpus."
-3. **Click Verify → Controls → Corpus.** Point at the summary tiles (controls in corpus,
-   regulations, controls for this system). Filter the **Applies** facet under **In this
-   project** in the left filter rail. Expand any row's caret. **Name the step**: "Step two
-   — Identify Controls. Every one of these carries the exact citation it derives from" —
-   read the framework line aloud. "When the corpus rolls, we know exactly which controls to
-   re-verify, because the citation is live, not a comment someone wrote once."
-4. **Click Verify → Controls → Bundle.** Point at the **Candidates / In the bundle** tab
-   split and the accepted/waived/removed counters. **Click Accept on one candidate row.** A
-   confirmation toast fires and the counters tick up live. **Name the step**: "Still step
-   two — this is an officer deciding what's actually in scope, not everything the corpus
-   could apply."
-5. **Click Verify → Controls → Sign.** Read (or closely paraphrase) the **"Signing does not
-   attest to any of the following"** list on-screen. **Click Sign bundle.** A new row lands
-   in the **Signed bundles** table below and the signed-off counters tick up. **Name the
-   step**: "Step three — Sign. A content-addressed, versioned record of exactly what was in
-   scope, at this revision — not a crypto attestation, and the page just told you that
-   itself."
-6. **Click Verify → Verdicts, ~15 sec.** Point at the ledger — newest first — and the
-   **Conclusion** column showing a mix of **Upheld** rows and at least one **Breached** or
-   **Error** row in view. **Name the step**: "Step four — Enforce. Every one of those
-   controls now runs on every request this system handles — not sampled, not quarterly.
-   We'll come back here in detail with Canvas in a few minutes." Glimpse only — don't
-   linger, that payoff belongs to §4.2.
-7. **Stay on Verdicts, ~15 sec.** Point at a **Breached** or **Error** row if one is
-   visible. **Name the step**: "Step five — Measure. That's drift showing up in the ledger
-   itself — we'll go deep on it later." Glimpse only — full payoff is §4.3. **Close the loop
-   to Slide 01**: "That ledger — enforced, measured, provable — is the governance posture
-   Slide 01 promised. Nothing here was asserted; it was proven."
-8. **Tab-switch back to the deck.** Continue to Slide 03 as a recap, not a new topic.
-
-**Fallback (if workbench-svc / the console doesn't respond)**: skip live, describe
-verbally, reference a pre-seeded bundle under `demo/governance/signed/` — open in a text
-editor if pressed. Because this demo no longer has a separate tab for steps 1–3, a console
-outage now takes down the *whole* beat — if the console smoke test (§2.2) fails, do not
-attempt any part of Demo 1 live; narrate all five steps verbally against the slide and move
-straight to Slide 03.
-
-### 4.2–4.4 Console demo track — one running console, three cues
-
-All three demo beats below use the same running console at `http://127.0.0.1:9889`
-(build/start steps: §2.5) — the same tab Demo 1 (§4.1) already ran in — different pages,
-different points in the deck.
-
-#### 4.2 Canvas walkthrough *(after Slide 06)*
-
-**Precondition**: Console running, left nav on **Canvas**, starter questions smoke-tested
-this session.
-
-**Beats (target ~3 min)**:
-
-1. **Tab-switch to the console, Canvas.** Say: "Instead of a static dashboard, we ask the
-   platform directly — it generates the view."
-2. **Ask a starter question** (or a pre-tested ad-hoc one) that touches controls or
-   evidence.
-3. **Confirm a live policy violation is visible** somewhere in the result or a follow-up
-   question — this is the key thing to show, not optional flavor.
-4. **Tab-switch back to the deck.** Continue to Slide 07.
-
-#### 4.3 Verdicts/Replay walkthrough (drift) *(after Slide 08)*
-
-Query the same control live in **Verify → Verdicts** across two time points, then open
-**Verify → Replay** on the session behind an anomalous verdict to show *why* it happened,
-not just that it did.
-
-#### 4.4 Optimize walkthrough (cost) *(after Slide 10)*
-
-**Precondition**: `optimize-local` synthetic stack running AND seeded with traffic —
-check `cd ~/akka/akka-console-ai-canvas/optimize-local && python3 stack.py status` for
-service health, then confirm the Spend page shows non-zero exchanges before the session.
-
-**Beats (target ~2 min)**:
-
-1. **Tab-switch to the console, Optimize → Spend.** Say: "Every token, every model,
-   tagged by business construct — department, use case, region."
-2. **Ask Canvas a cost question live** — pre-test any variant before relying on it in the
-   room.
-3. **Tab-switch back to the deck** for the close.
-
-**Fallback (no seeded traffic, or Optimize errors)**: narrate the page structure without a
-live number, and land the cost-governance point verbally on Slide 10 using the
-Observe/Scrutinize/Compare framing already in the slide copy.
-
----
-
-## 5. Recovery from common failure modes
-
-### 5.1 Workbench-svc won't start (symptom: Verify → Risk/Controls is empty or errors in the console)
-
-Demo 1 has no separate tab of its own, so a dead `workbench-svc` shows up as the console's
-Verify pages failing to load, not as a "Connecting…" banner on a standalone page.
+Workbench-svc has no tab of its own. A dead one shows as a missing or Unavailable entry under
+Services in the console, and `curl http://127.0.0.1:8730/api/overview` fails.
 
 ```bash
 # 1. Is port 8730 already bound?
@@ -461,63 +300,62 @@ lsof -ti:8730 | xargs kill
 
 If Maven can't resolve dependencies — verify `~/.m2/settings.xml` still has the akka-repo
 token and try `mvn -q -DskipTests dependency:resolve` alone before `exec:java`. After
-restarting `workbench-svc`, reload the console tab (⌘R) — it discovers the service on load,
-not continuously.
+restarting `workbench-svc`, reload the console tab (⌘R). A service another project left
+registered stays listed as Unavailable until the daemon restarts (`demo-env.sh up`).
 
-### 5.2 Deck won't build
+### 4.2 Deck won't build
 
 `python3 builder/build.py --mode overview 2>&1 | tail -20` — if a slide's `meta.json` is
 malformed, the traceback names the file.
 
-### 5.3 A slide lands with content clipped
+### 4.3 A slide lands with content clipped
 
 Every slide is designed to fit at 860px usable height. If content still clips in your
 projector's resolution, that's a projector aspect ratio mismatch — press **⌘0** to reset
 zoom, or **F** to toggle fullscreen off/on. Do NOT edit CSS live.
 
-### 5.4 You lose the deck to a screen sleep / lock
+### 4.4 You lose the deck to a screen sleep / lock
 
 `⌘⇧F` toggles fullscreen back. `⌘R` reloads without losing progress (deck is stateless —
 starts at the title slide again; PgDn until you're back).
 
-### 5.5 A demo hangs mid-click
+### 4.5 A demo hangs mid-click
 
 Never wait longer than 5 seconds. Say the punchline verbally and move on. The audience
 will forgive a slow tab far less than a silent presenter watching a spinner.
 
 ---
 
-## 6. Post-session cleanup
+## 5. Post-session cleanup
 
 ```bash
-# 1. Stop the workbench-svc
-lsof -ti:8730 | xargs kill 2>/dev/null
+# 1. Stop the environment
+./demo-env.sh down
 
-# 2. Any test .gcc bundles produced during the demo
-cd ~/akka/governance-explainability
-git status demo/governance/signed/
-# If new bundles are demo artifacts you don't want to commit:
-#   git checkout -- demo/governance/signed/       # discards them
+# 2. Accept and Sign wrote to the demo project: controls.yaml, survey.yaml, and a new file
+#    under signed/. Restore the saved baseline, or review the changes first.
+cd ~/akka/akka-console-ai-canvas
+git status samples/loan-origination/governance/
+cd ~/akka/presentations/_wip/governance && ./demo-env.sh reset
 
 # 3. Close Chrome tabs.
 ```
 
 ---
 
-## 7. One-page cheat sheet (print or keep on a phone)
+## 6. One-page cheat sheet (print or keep on a phone)
 
 ```
 ENVIRONMENT      cd ~/akka/presentations/_wip/governance && ./demo-env.sh up --pull   (also: down, status)
 DECK             file:///Users/smittyweygant/akka/presentations/_wip/governance/generated/overview/index.html
-CONSOLE (ALL)    http://localhost:9889  (land on Canvas, nav collapsed — Dashboard/Verify/Optimize also in left nav)
-                 Demo 1 (after Slide 02): Verify > Risk > Controls (Corpus/Bundle/Sign) > Verdicts
-                 Canvas / Verdicts-Replay / Optimize walkthroughs come later (§4.2-4.4)
+CONSOLE (ALL)    http://localhost:9889  (land on Canvas, nav collapsed). Click sheets: demos/
+DEMO PROJECT     ./demo-env.sh snapshot (save baseline)   ./demo-env.sh reset (restore it)
 DEMO 1 BACKEND   workbench-svc must be running — not presented directly, console discovers it
                  cd ~/akka/governance-explainability
                  PROJECT_ROOT=./demo REPO_ROOT=. mvn -f services/workbench-svc/pom.xml -q compile exec:java
 DEMO 1 BACKEND STOP  lsof -ti:8730 | xargs kill
 TRACE LEDGER     cd ~/akka/akka-console-ai-canvas/samples/trace-ledger && mvn -q compile exec:java
-                 (start after CONSOLE START — backs Verify > Traces/Replay, port 9096)
+                 (start after CONSOLE START — backs Verify > Activity: Traces, Replay; port 9096)
 TRACE LEDGER STOP  lsof -ti:9096 | xargs kill
 CONSOLE START    cd ~/akka/akka-console-ai-canvas && bash scripts/build-akka-with-console.sh \
                  && akka-cli/build/akka local stop; akka-cli/build/akka local start
@@ -531,13 +369,12 @@ NEXT SLIDE       PgDn / → / Space
 PREV SLIDE       PgUp / ←
 FULLSCREEN       F  (⌘⇧F to toggle)
 BUILD DECK       cd ~/akka/presentations/_wip/governance && python3 builder/build.py --mode overview
+DEV SERVER       cd ~/akka/presentations/_wip/governance && node dev-server.mjs   (live reload, :8765)
 ```
 
 ---
 
 *Reconstituted 2026-10-01 as the generic companion to `README.md`, split out of the
 customer-specific runbook so every customer deck has a presenter runbook to start from.
-Demo 1 reworked 2026-10-01 to run entirely inside the console (no more standalone
-`127.0.0.1:8730` tab) — see §4.1; backported from the CIBC Mellon customer runbook, where
-this was originally caught and fixed, per this repo's rule that generic mechanics belong
-here first. Living doc.*
+Demos moved to `demos/` 2026-10-14; this file now covers the environment and the deck build.
+Living doc.*

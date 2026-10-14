@@ -116,3 +116,9 @@ walk with demo cues. `SPEAKER-NOTES.md` is the talk-track source of truth per sl
 
 A customer-specific copy is a standalone seed of `builder/`, `shell/`, `slides/`, and
 `assets/` from this deck. No customer name, ask, or live tenant data belongs in this repo.
+
+## Where things live
+
+- `SPEAKER-NOTES.md` holds every spoken word, demos included. `teleprompter/` is generated from it.
+- `demos/` holds the click sheets, checks, and resets for the four console demos.
+- `PRESENTER-RUNBOOK.md` covers the demo environment and the deck build. `demo-env.sh` runs it.

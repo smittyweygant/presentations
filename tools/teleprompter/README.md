@@ -35,6 +35,10 @@ the next run overwrites them. They are committed so nobody needs Python to load 
   with no break is one page.
 - A line of the form `>>> ... <<<` is a demo cue. It passes through unchanged, so it shows
   on the prompter.
+- A line that is entirely `[like this]` is an on-screen cue. It passes through, shows on the
+  prompter in brackets, and isn't counted as spoken words.
+- `>>> DEMO ... <<<` opens a demo and `>>> BACK TO DECK <<<` closes it. Words between them
+  are reported as demo words in the footer of the readable copy.
 - `- **Teleprompter**: omitted` anywhere in a section skips it. The governance deck uses
   this for the customer-specific slide.
 - `{{presenter-intro}}` becomes `I'm <first name>, <title>.` for a presenter, using

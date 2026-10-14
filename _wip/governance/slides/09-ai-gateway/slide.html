@@ -8,9 +8,9 @@
     </div>
     <div class="gov-body gov-reveal">
       <div class="s09ag-table">
-        <div class="s09ag-row"><span class="s09ag-label">Built on Akka</span><span class="s09ag-text">Controls run natively in the runtime.</span></div>
-        <div class="s09ag-row"><span class="s09ag-label">Everything else</span><span class="s09ag-text">Route its model and tool calls through Akka's AI gateway.</span></div>
-        <div class="s09ag-row"><span class="s09ag-label">Everything else</span><span class="s09ag-text">Some controls need to be implemented in the agent, traces sent to Akka's ledger.</span></div>
+        <div class="s09ag-row s09ag-head"><span></span><span>Built on Akka</span><span>Third-party agent</span></div>
+        <div class="s09ag-row"><span class="s09ag-label">Model and tool calls: guardrails, sanitizers, evals</span><span class="s09ag-text">Enforced natively in the runtime.</span><span class="s09ag-text">Routed through Akka's AI gateway, then enforced.</span></div>
+        <div class="s09ag-row"><span class="s09ag-label">Other controls, e.g. human escalation</span><span class="s09ag-text">Governed by the Akka platform.</span><span class="s09ag-text">Agent reports events by tracing; Akka records them.</span></div>
       </div>
     </div>
   </div>

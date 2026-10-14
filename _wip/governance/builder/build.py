@@ -126,6 +126,8 @@ parser.add_argument('--presenter', default=None,
     help='Presenter JSON file stem in presenters/ (e.g. "tyler")')
 parser.add_argument('--out', default=None,
     help='Output file path (default: generated/<mode>/index.html)')
+parser.add_argument('--no-zip', action='store_true',
+    help='Skip the zip of the output folder (faster rebuilds)')
 args = parser.parse_args()
 
 out_path = args.out or os.path.join(GEN, args.mode, 'index.html')
@@ -445,24 +447,27 @@ size_kb = os.path.getsize(out_path) // 1024
 # ── Zip output dir ────────────────────────────────────────────────────────────
 # Place zip at generated/ root with a descriptive name so it's easy to share.
 
-zip_name = f'akka-presentation-{args.mode}.zip'
-if args.presenter:
-    zip_name = f'akka-presentation-{args.mode}-{args.presenter}.zip'
-zip_path = os.path.join(GEN, zip_name)
+zip_kb = 0
+if not args.no_zip:
+    zip_name = f'akka-presentation-{args.mode}.zip'
+    if args.presenter:
+        zip_name = f'akka-presentation-{args.mode}-{args.presenter}.zip'
+    zip_path = os.path.join(GEN, zip_name)
 
-with zipfile.ZipFile(zip_path, 'w', zipfile.ZIP_DEFLATED) as zf:
-    for root, _, files in os.walk(out_dir):
-        for fname in files:
-            if fname.endswith('.zip'):
-                continue
-            fpath = os.path.join(root, fname)
-            zf.write(fpath, os.path.relpath(fpath, out_dir))
+    with zipfile.ZipFile(zip_path, 'w', zipfile.ZIP_DEFLATED) as zf:
+        for root, _, files in os.walk(out_dir):
+            for fname in files:
+                if fname.endswith('.zip'):
+                    continue
+                fpath = os.path.join(root, fname)
+                zf.write(fpath, os.path.relpath(fpath, out_dir))
 
-zip_kb = os.path.getsize(zip_path) // 1024
+    zip_kb = os.path.getsize(zip_path) // 1024
 
 print(f'Mode:      {args.mode}')
 print(f'Slides:    {included} included, {skipped} skipped')
 if presenter:
     print(f'Presenter: {args.presenter}')
 print(f'Output:    {out_path}  ({size_kb} KB)')
-print(f'Zip:       {zip_path}  ({zip_kb} KB)')
+if not args.no_zip:
+    print(f'Zip:       {zip_path}  ({zip_kb} KB)')

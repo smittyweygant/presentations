@@ -11,7 +11,8 @@
 .gov-reveal.is-visible { opacity: 1; transform: translateY(0); }
 
 .s09ag-table { max-width: 1000px; }
-.s09ag-row { display: grid; grid-template-columns: 180px 1fr; align-items: baseline; gap: 24px; padding: 14px 0; border-top: 1px solid rgba(255,255,255,0.14); }
+.s09ag-row { display: grid; grid-template-columns: 230px repeat(2, 1fr); align-items: baseline; gap: 24px; padding: 14px 0; border-top: 1px solid rgba(255,255,255,0.14); }
 .s09ag-row:first-child { border-top: none; }
-.s09ag-label { font-size: 13px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--yellow); }
+.s09ag-head { color: var(--yellow); text-transform: uppercase; letter-spacing: 0.06em; font-size: 13px; font-weight: 700; padding-bottom: 10px; }
+.s09ag-label { font-size: 13px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: rgba(255,255,255,0.6); }
 .s09ag-text { font-size: clamp(14px, 1.2vw, 17px); line-height: 1.4; color: rgba(255,255,255,0.86); }
