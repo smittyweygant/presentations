@@ -32,7 +32,7 @@ CERN's earlier relational acquisition system, built in the early 2000s, had scal
 
 CERN built its next-generation acquisition layer on Akka. The system spreads workload horizontally across nodes, adds resources dynamically, detects and reports failures, and persists the state of the distributed system to external storage so nothing is lost when a process goes down. It processes on the order of 100,000 messages per second across roughly 90,000 subscriptions, and isolates any device that suddenly sends excessive data onto its own worker so the wider acquisition layer stays stable.
 
-This is the **Never Fail** guarantee: the Akka Agentic AI Platform handles clustering, resilience, durable state, and workload distribution, so the application does not have to.
+The Akka Agentic AI Platform handles clustering, resilience, durable state, and workload distribution, so the application does not have to.
 
 ## The results
 

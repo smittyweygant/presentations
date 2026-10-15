@@ -32,7 +32,7 @@ Automating it demanded a system that could ingest millions of events in real tim
 
 DeductiveAI built its multi-agent system on the **Akka Agentic AI Platform**, delivered and operated through **Akka Specify**. Agents ingest telemetry into a knowledge graph, detect probable causes, rank hypotheses, and return evidence to developers in real time — running fully autonomously or in a human-in-the-loop mode. The platform carries the state of each investigation durably, so a long-running analysis survives failure and resumes where it left off.
 
-This is the **Never Fail** guarantee: the Akka Agentic AI Platform handles clustering, resilience, durable state, and traffic steering, so the agents investigating an incident do not lose their work and stay responsive as event volume spikes.
+The Akka Agentic AI Platform handles clustering, resilience, durable state, and traffic steering, so the agents investigating an incident do not lose their work and stay responsive as event volume spikes.
 
 ## The results
 

@@ -24,6 +24,7 @@ ROOT = os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)),
 
 TARGETS = [
     'akka-overview/index.html',
+    'akka-sdk/index.html',
     'akka-verify/index.html',
     'akka-verify/risk-survey/index.html',
     'website/industry-*.html',
@@ -61,8 +62,10 @@ def main():
     check_only = '--check' in sys.argv
     values = corpus_counts.values()
 
+    # Paths on the command line narrow the run to those files.
+    targets = [a for a in sys.argv[1:] if not a.startswith('--')] or TARGETS
     problems, changed, scanned = [], [], 0
-    for pattern in TARGETS:
+    for pattern in targets:
         for path in sorted(glob.glob(os.path.join(ROOT, pattern))):
             scanned += 1
             with open(path, encoding='utf-8') as f:

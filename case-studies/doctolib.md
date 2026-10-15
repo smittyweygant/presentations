@@ -32,7 +32,7 @@ Meeting those requirements the conventional way meant assembling and operating a
 
 Doctolib built its messaging on the **Akka Agentic AI Platform**, using sharding, pub/sub messaging, clustering, and replication to move encrypted messages between servers without an external cache or message queue. Removing those dependencies cut both the operational load and the compliance surface, which is why two engineers can run the entire backend.
 
-This is the **Never Fail** guarantee: the Akka Agentic AI Platform handles clustering, resilience, durable in-memory state, and traffic steering, so the application does not have to. Jasper Aarts, Senior Staff Engineer at Doctolib, put it directly: "What's great about Akka is that it just works. It's saved us a lot of hours in terms of setup, and we are able to run our entire backend system with just two engineers."
+The Akka Agentic AI Platform handles clustering, resilience, durable in-memory state, and traffic steering, so the application does not have to. Jasper Aarts, Senior Staff Engineer at Doctolib, put it directly: "What's great about Akka is that it just works. It's saved us a lot of hours in terms of setup, and we are able to run our entire backend system with just two engineers."
 
 ## The results
 

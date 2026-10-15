@@ -42,7 +42,7 @@ Every machine, robot, operator, and part emits a stream of state. Keeping a real
 
 ## Governance — safe, accountable AI on the line
 
-AI in manufacturing touches product safety, the connected supply chain, and the workforce — areas regulators treat as high-risk. Akka tracks <!--corpus:regulations-->190<!--/corpus--> AI regulations worldwide, mapped to enforceable controls and monitored as they change.
+AI in manufacturing touches product safety, the connected supply chain, and the workforce — areas regulators treat as high-risk. Akka tracks <!--corpus:regulations-->227<!--/corpus--> regulations and frameworks worldwide, mapped to enforceable controls and monitored as they change.
 
 - **AI governance:** EU AI Act, NIST AI RMF, ISO/IEC 42001
 - **Product safety:** EU AI Act (high-risk), EU Product Liability, EU Cyber Resilience Act

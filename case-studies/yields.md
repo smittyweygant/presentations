@@ -32,7 +32,7 @@ Yields set out to automate and standardize that work. The platform had to test m
 
 Yields represents everything on its platform as events. Each event captures a validation step and can trigger the next process, which gives the platform a complete, replayable record of how every model was tested. Yields built this on the **Akka Agentic AI Platform**, which provided the event-driven foundation, durable state, and auditability the team needed without building that infrastructure themselves.
 
-This is the **Never Fail** guarantee: the Akka Agentic AI Platform handles durable state, resilience, and event history, so a model-governance workload keeps a trustworthy record even through failure.
+The Akka Agentic AI Platform handles durable state, resilience, and event history, so a model-governance workload keeps a trustworthy record even through failure.
 
 ## The results
 

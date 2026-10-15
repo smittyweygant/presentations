@@ -42,7 +42,7 @@ A device launch or holiday sale can multiply traffic in minutes. Provisioning, b
 
 ## Governance — consumer trust and critical-infrastructure resilience
 
-Telecom sits at the intersection of consumer AI transparency, data protection, and critical-infrastructure resilience. Akka tracks <!--corpus:regulations-->190<!--/corpus--> AI regulations worldwide, mapped to enforceable controls and monitored as they change.
+Telecom sits at the intersection of consumer AI transparency, data protection, and critical-infrastructure resilience. Akka tracks <!--corpus:regulations-->227<!--/corpus--> regulations and frameworks worldwide, mapped to enforceable controls and monitored as they change.
 
 - **AI governance:** EU AI Act, NIST AI RMF, ISO/IEC 42001
 - **Consumer & transparency:** EU AI Act Art. 50, GDPR, CCPA

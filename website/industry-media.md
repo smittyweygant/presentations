@@ -42,7 +42,7 @@ Recommendations can't be pre-computed when viewing behavior changes by the secon
 
 ## Governance — transparent AI content and recommendations
 
-Media faces fast-moving rules on AI-generated content disclosure, recommendation transparency, and data use. Akka tracks <!--corpus:regulations-->190<!--/corpus--> AI regulations worldwide, mapped to enforceable controls and monitored as they change.
+Media faces fast-moving rules on AI-generated content disclosure, recommendation transparency, and data use. Akka tracks <!--corpus:regulations-->227<!--/corpus--> regulations and frameworks worldwide, mapped to enforceable controls and monitored as they change.
 
 - **AI governance:** EU AI Act, NIST AI RMF, ISO/IEC 42001
 - **Content & transparency:** EU AI Act Art. 50, CA AB 2013, synthetic-media disclosure

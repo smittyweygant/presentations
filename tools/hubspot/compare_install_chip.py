@@ -20,7 +20,7 @@ import install_line  # noqa: E402
 from hubspot import to_hubspot_fragment  # noqa: E402
 
 PAGES = ROOT / "comparisons"
-CTA = '<a class="cta" href="https://akka.io/contact">Talk to Akka <span aria-hidden="true">→</span></a>'
+CTA = '<a class="cta" href="https://akka.io/contact-us">Talk to Akka <span aria-hidden="true">→</span></a>'
 # The CTA's own top margin moves to the row, so the chip and the button share a centre line.
 ROW_CSS = ("<style>.close .rv:has(> button.akka-install){display:flex;flex-wrap:wrap;"
            "justify-content:center;align-items:center;gap:16px 20px;margin-top:34px}"

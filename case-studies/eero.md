@@ -32,7 +32,7 @@ A traditional web architecture would not scale for the workload. The database be
 
 Amazon eero standardized on the **Akka Agentic AI Platform** for high-concurrency, distributed, resilient communication between customer device endpoints, the eero backend, and the eero cloud. The platform holds durable in-memory state instead of routing every read and write through a shared database, giving high-performance messaging between devices and cloud even when individual devices are offline or unreachable.
 
-Each user's network and each node is modeled as its own independent unit, so eero orchestrates complex network-management tasks — including pushing firmware updates to individual devices — without central bottlenecks. This is the **Never Fail** guarantee: the Akka Agentic AI Platform handles clustering, resilience, durable state, and traffic steering, so the application does not have to.
+Each user's network and each node is modeled as its own independent unit, so eero orchestrates complex network-management tasks — including pushing firmware updates to individual devices — without central bottlenecks. The Akka Agentic AI Platform handles clustering, resilience, durable state, and traffic steering, so the application does not have to.
 
 ## The results
 

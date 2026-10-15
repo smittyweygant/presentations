@@ -9,8 +9,12 @@
       "folder": "slides/00a-cibc-requirements"
     },
     {
-      "id": "00b-ai-regulations",
-      "folder": "slides/00b-ai-regulations"
+      "id": "00b-integration-parts",
+      "folder": "slides/00b-integration-parts"
+    },
+    {
+      "id": "00c-shared-abstractions",
+      "folder": "slides/00c-shared-abstractions"
     },
     {
       "id": "01-posture",

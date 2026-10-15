@@ -32,7 +32,7 @@ The legacy decisioning system could not answer in the moment. It processed appli
 
 Capital One built Auto Navigator as a cloud-native application on the **Akka Agentic AI Platform**, deployed on Amazon Web Services. The platform was selected to move decisioning from batch to real time: pre-qualify a buyer, price the loan against their budget, and return an answer while the buyer is still shopping — all without touching their credit score.
 
-This is the **Never Fail** guarantee: the Akka Agentic AI Platform handles clustering, resilience, durable in-memory state, and traffic steering, so the application stays responsive under load and every decision is served in the moment.
+The Akka Agentic AI Platform handles clustering, resilience, durable in-memory state, and traffic steering, so the application stays responsive under load and every decision is served in the moment.
 
 ## The results
 

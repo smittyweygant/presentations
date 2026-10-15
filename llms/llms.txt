@@ -25,9 +25,9 @@ This is a concise index. For the complete overview, including full platform deta
 
 ## What Each Solution Removes
 
-Akka has one offering, the Akka Agentic AI Platform. Each of the platform's four solutions removes one specific cost. The savings come from the definition of an AI system, the runtime, the evidence record and the governance model that the four solutions share.
+Akka has one offering, the Akka Agentic AI Platform. Akka Specify, Akka Optimize and Akka Verify each remove one specific cost. The savings come from the definition of an AI system, the runtime, the evidence record and the governance model that the four solutions share.
 
-- **Akka SDK — removes infrastructure cost.** The component model and runtime for agentic systems. Agents, memory, orchestration, streaming, and endpoints run on shared compute inside one runtime, and actor-based concurrency and that shared model drop operating costs up to 90%. Fox shrank its AI personalization engine from 150,000 cores to 22,000 after porting to Akka.
+- **Akka SDK** is the component model for building agentic systems. Agents, memory, orchestration, streaming, and endpoints run on shared compute inside one runtime, and actor-based concurrency and that shared model drop operating costs up to 90%. Fox shrank its AI personalization engine from 150,000 cores to 22,000 after porting to Akka.
 - **Akka Specify — removes rework.** Developers and non-developers write plain-language specifications, and every change is verified against them, so code never drifts from spec and technical and knowledge debt stop accumulating. Dojo put AI-based merchant onboarding into production in weeks, built by college graduates.
 - **Akka Optimize — removes token spend.** Akka trains smaller models on your data and routes work to them as they improve. You own the models, and token costs fall. Swiggy cut prediction latency from 144ms to 71ms while reducing token consumption 22%.
 - **Akka Verify — removes governance effort.** Risk teams define policies once, and the runtime enforces them across every agent, against 227 regulations and frameworks, with a tamper-evident record for compliance. Manulife rolled Akka out to 2,000 developers in 6 countries under central risk control.

@@ -141,6 +141,11 @@ def build():
     page_body = inline_tour(block(SRC / "index.html", "<!-- tour:start", "<!-- tour:end -->"))
     band = inline_tour(block(SRC / "home-band.html", "<!-- band:start", "<!-- band:end -->"))
     band = band.replace('href="index.html', 'href="' + TOUR_URL)
+    # The total is in the markup for crawlers; the band script sets the same value from TOUR.screens.
+    screens = len(re.findall(r'^\s*\{ id: "', (SRC / "tour.js").read_text(encoding="utf-8"), re.M))
+    band, n = re.subn(r'(<span id="ct-total">)\d+(</span>)', rf'\g<1>{screens}\g<2>', band)
+    if n != 1:
+        sys.exit("expected one ct-total span in the band")
     if 'href="index.html' in band:
         sys.exit("band still links to index.html")
     no_hubl("tour page", page_body)

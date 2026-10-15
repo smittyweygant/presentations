@@ -32,7 +32,7 @@ The volume was the obstacle. A single machine generates a continuous stream of t
 
 John Deere built its Precision Ag offering on the **Akka Agentic AI Platform** to collect and analyze the sensor data at scale. The platform ingests high-volume telemetry from combines and tractors, joins it with weather feeds and manufacturer data, and returns analysis fast enough to guide equipment use in the field. The same workload runs on a fraction of the infrastructure a conventional data pipeline would require, and the services stay responsive as fleet volume grows.
 
-This is the **Never Fail** guarantee: the Akka Agentic AI Platform handles clustering, resilience, durable in-memory state, and traffic steering, so the application does not have to.
+The Akka Agentic AI Platform handles clustering, resilience, durable in-memory state, and traffic steering, so the application does not have to.
 
 ## The results
 

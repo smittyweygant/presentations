@@ -32,7 +32,7 @@ Personalization at this scale is a real-time data problem. Viewing signals arriv
 
 Fox standardized on the **Akka Agentic AI Platform** to apply AI to real-time streams of viewing data. The platform handles automatic scaling, failure resilience, and production-grade observability, so the engineering team builds personalization logic instead of operating infrastructure. Development velocity increased as engineers gained the confidence to solve complex production issues quickly.
 
-This is the **Never Fail** guarantee: the Akka Agentic AI Platform handles clustering, resilience, durable in-memory state, and traffic steering, so the application does not have to. Recommendations stay responsive under load, and viewing continues through failure.
+The Akka Agentic AI Platform handles clustering, resilience, durable in-memory state, and traffic steering, so the application does not have to. Recommendations stay responsive under load, and viewing continues through failure.
 
 ## The results
 

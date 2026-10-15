@@ -42,7 +42,7 @@ The systems that run accelerators, utilities, and public services can't lose dat
 
 ## Governance — accountable AI for public institutions
 
-Governments hold themselves to explicit AI accountability, responsible-use, and procurement standards — and public authorities are high-risk deployers under the EU AI Act. Akka tracks <!--corpus:regulations-->190<!--/corpus--> AI regulations worldwide, mapped to enforceable controls and monitored as they change.
+Governments hold themselves to explicit AI accountability, responsible-use, and procurement standards — and public authorities are high-risk deployers under the EU AI Act. Akka tracks <!--corpus:regulations-->227<!--/corpus--> regulations and frameworks worldwide, mapped to enforceable controls and monitored as they change.
 
 - **Federal AI policy:** OMB M-26-04, FedRAMP AI, NIST AI RMF
 - **Defense & national security:** DoD Responsible AI, UK MOD JSP 936, NATO AI Principles

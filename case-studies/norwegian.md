@@ -32,7 +32,7 @@ Demand is highly seasonal. Wave season — the early-year window when a large sh
 
 Norwegian rebuilt its codebases and converted the monolith into a service-oriented architecture with decoupled systems on the **Akka Agentic AI Platform**. The majority of ncl.com and the partner API front-end now run on it. The deciding factors were agility, decoupled deployment, and resilience under seasonal load.
 
-This is the **Never Fail** guarantee: the Akka Agentic AI Platform handles clustering, resilience, durable in-memory state, and traffic steering, so the application does not have to. Norwegian ran shipboard payments for the casino, arcade, and vending machines on it for over two years without a single crash.
+The Akka Agentic AI Platform handles clustering, resilience, durable in-memory state, and traffic steering, so the application does not have to. Norwegian ran shipboard payments for the casino, arcade, and vending machines on it for over two years without a single crash.
 
 ## The results
 

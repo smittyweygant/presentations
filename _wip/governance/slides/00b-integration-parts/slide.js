@@ -1,5 +1,5 @@
 (function() {
-  const wrapper = document.getElementById('slide-ai-regulations-wrapper');
+  const wrapper = document.getElementById('slide-integration-parts-wrapper');
   if (!wrapper) return;
   const reveals = Array.from(wrapper.querySelectorAll('.gov-reveal'));
   const io = new IntersectionObserver((entries) => {

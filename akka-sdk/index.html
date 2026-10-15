@@ -314,7 +314,7 @@
   <div class="inner">
     <div class="eyebrow reveal">The design intent</div>
     <h2 class="shead reveal">An SDK that models <span class="accent">entire AI systems.</span></h2>
-    <p class="ssub reveal">Akka&rsquo;s components compose into agentic services that have their own APIs, orchestration, durability, and resilience so that an agent that fails mid-task <span class="accent">resumes rather than restarts</span>.</p>
+    <p class="ssub reveal">Akka components compose into agentic services that have their own APIs, orchestration, durability, and resilience so that an agent that fails mid-task <span class="accent">resumes rather than restarts</span>.</p>
     <div class="si-map reveal">
       <div class="si-side">
         <div class="si-h">Otherwise you assemble</div>
@@ -349,7 +349,7 @@
 <div id="s13-wrapper">
 <section id="s13">
   <div class="s13-eyebrow s13-reveal">The architecture</div>
-  <div class="s13-headline s13-reveal">We&rsquo;ve been building distributed <br class="s13-br">systems for <span class="accent">20 years.</span></div>
+  <div class="s13-headline s13-reveal">We&rsquo;ve been building distributed <br class="s13-br">systems <span class="accent">since 2007.</span></div>
   <div class="s13-subhead s13-reveal">Services built with Akka have embedded clustering to make your AI resilient from failures while scaling to millions of nodes.</div>
 
   <div class="s13-grid s13-reveal">
@@ -428,16 +428,16 @@
 
         <div class="panel active">
           <div class="pc">Akka Specify</div>
-          <div class="pb"><p>Akka Specify builds <span class="accent">any kind of AI system</span> from requirements you already have. You describe the outcome, and Akka generates, governs, and runs the system for you.</p><p>Data scientists, product managers, citizen developers, and engineers can all take part, supplying their requirements as text, spreadsheets, graphics, or diagrams.</p></div>
+          <div class="pb"><p>Akka Specify is <span class="accent">spec-driven development tooling</span> that builds an agentic system from plain-language specifications and checks every change against them.</p><p>Data scientists, product managers, citizen developers, and engineers can all take part, supplying their requirements as text, spreadsheets, graphics, or diagrams.</p></div>
           <div class="pgrid">
             <div class="dg">
               <div class="dg-vflow"><span class="dg-box">Your harness</span><span class="dg-ar">▸</span><div class="dg-row3"><span class="dg-box hl">Akka Specify</span><span class="dg-box">Akka MCP</span><span class="dg-box">Akka CLI</span></div></div>
-              <div class="dg-note">Claude, Codex, or Copilot drives Specify through Akka&rsquo;s MCP and CLI.</div>
+              <div class="dg-note">Claude, Codex, or Copilot drives Specify through the Akka MCP server and CLI.</div>
             </div>
             <div class="term-col">
             <pre class="pcode term"><code><span class="t-dim">$ claude</span>
 <span class="t-cmd">&gt; /akka:setup</span>
-  <span class="t-ok">&#10003;</span> Akka CLI &middot; Java &middot; Maven &middot; governance floor
+  <span class="t-ok">&#10003;</span> Akka CLI &middot; Java &middot; Maven &middot; Akka plugin
 <span class="t-cmd">&gt; /akka:specify</span> greeter agent &mdash; greet each user
   in a new language every turn, per session
   <span class="t-dim">Inferring definition of done&hellip; 17 conditions</span>
@@ -745,7 +745,7 @@ public class CounterEventsConsumer extends Consumer {
   <div class="inner">
     <div class="eyebrow reveal" style="display:inline-block;">The Akka Agentic AI Platform</div>
     <h2 class="reveal">An <span class="accent">integrated platform.</span></h2>
-    <div class="fam-sub reveal">A platform that builds and modernizes software, runs it, keeps it honest, and holds its cost down.</div>
+    <div class="fam-sub reveal">The platform uses smart shared abstractions to make every AI system as efficient as possible.</div>
 
     <div class="fam-grid reveal">
       <!-- CAKE:BODY (generated from sales-presentation/slides/family-platform by _build/sync_cake.py — do not edit here; edit the canonical slide) -->
@@ -754,7 +754,7 @@ public class CounterEventsConsumer extends Consumer {
         <div class="cake">
 
           <div class="layer">
-            <div class="role">Deliver<b>&amp; Govern</b></div>
+            <div class="role">Define<b>&amp; Govern</b></div>
             <div class="cards two govwide">
               <div class="ocard rt-pick" data-rt="specify" tabindex="0" role="button" aria-pressed="false">
                 <div class="oname">Akka Specify</div>
@@ -797,20 +797,20 @@ public class CounterEventsConsumer extends Consumer {
       <div class="rt-panel">
         <div class="rt-panel-body" data-rt-body="specify" hidden>
           <h3>Akka Specify</h3>
-          <p>Akka Specify is <span class="accent">spec-driven delivery</span>: tooling for developers and non-developers to build and test agentic systems.</p>
+          <p>Akka Specify is <span class="accent">spec-driven development tooling</span> that builds an agentic system from plain-language specifications and checks every change against them.</p>
           <p>Specifications carry the exit conditions the system must meet. Any change that drifts from them is blocked before it merges.</p>
-          <p>The specs live with the code, so <span class="accent">technical and knowledge debt do not accumulate</span>. Specify runs inside the repos, CI, and AI assistants your teams already use.</p>
+          <p>The specs live with the code, so <span class="accent">technical and knowledge debt do not accumulate</span>. Specify runs inside the repos, CI, and AI harnesses your teams already use.</p>
         </div>
         <div class="rt-panel-body" data-rt-body="verify" hidden>
           <h3>Akka Verify</h3>
-          <p>Akka Verify governs agents <span class="accent">at runtime</span>: it decides what an agent may do and records what it did.</p>
+          <p>Akka Verify is <span class="accent">runtime-native</span> evaluation, enforcement, evidence and governance for agents built on Akka or elsewhere.</p>
           <p>Policies allow, block, or report. Evaluations grade and score every response. Guardrails act inline, sanitizers redact and mask, and <span class="accent">HITL escalations</span> put a person in the loop.</p>
-          <p>Every run leaves a durable evidence record you can hand to an auditor, mapped against a corpus of <span class="accent"><!--corpus:regulations-->190<!--/corpus--> AI regulations</span>. It covers agents built on Akka and agents built elsewhere.</p>
+          <p>Every run leaves a durable evidence record you can hand to an auditor, mapped against a corpus of <span class="accent"><!--corpus:regulations-->227<!--/corpus--> regulations and frameworks</span>.</p>
         </div>
         <div class="rt-panel-body" data-rt-body="sdk" hidden>
           <h3>Akka SDK</h3>
-          <p>Akka SDK is the component model and runtime for agentic systems, and where <span class="accent">resilience and scalability</span> are guaranteed.</p>
-          <p><span class="accent">Agents and workflows</span> carry behaviour, <span class="accent">entities and views</span> carry durable state, and <span class="accent">endpoints, timers, and consumers</span> connect the system to everything outside it.</p>
+          <p>Akka SDK is the component model for building agentic systems. The platform&rsquo;s runtime guarantees the <span class="accent">resilience and scalability</span> of everything built with it.</p>
+          <p><span class="accent">Agents and workflows</span> carry behaviour. <span class="accent">Entities and views</span> carry durable state. <span class="accent">Endpoints, timers and consumers</span> connect the system to everything outside it.</p>
           <p>State is durable by default and replayable from its event journal, so an agent that fails mid-task <span class="accent">resumes from where it stopped</span>.</p>
         </div>
         <div class="rt-panel-body" data-rt-body="agents" hidden>
@@ -870,8 +870,8 @@ public class CounterEventsConsumer extends Consumer {
         </div>
         <div class="rt-panel-body" data-rt-body="shredder" hidden>
           <h3>Akka Optimize</h3>
-          <p>Akka Optimize is how you <span class="accent">own your intelligence</span>: it routes traffic to the best open-weight model and trains smaller ones on your data.</p>
-          <p>Routing sends each request to the open-weight model that handles it best. Optimize reads <span class="accent">evaluated production traffic</span> to find work a smaller model can take, then trains, proves, and promotes it.</p>
+          <p>Akka Optimize routes traffic to <span class="accent">the best open-weight model</span> and trains smaller ones on your data.</p>
+          <p>Optimize reads <span class="accent">evaluated production traffic</span> to find work a smaller model can take, then trains, proves, and promotes it.</p>
           <p>The measure is <span class="accent">cost per verified task</span>. Quality is held to the evidence Verify already collects, so cost falls without behaviour drifting.</p>
         </div>
       </div>

@@ -1,0 +1,25 @@
+{
+  "id": "00b-integration-parts",
+  "nav_id": "slide-integration-parts-wrapper",
+  "section": 0,
+  "pre_spacer": 0,
+  "scroll": {
+    "envelope_vh": "100vh"
+  },
+  "reveals": {
+    "scroll_progress": null,
+    "intersection": [
+      {
+        "selector": ".gov-reveal",
+        "threshold": 0.2
+      }
+    ]
+  },
+  "images": [],
+  "include_in": [
+    "overview",
+    "shareable",
+    "live",
+    "hands-on"
+  ]
+}

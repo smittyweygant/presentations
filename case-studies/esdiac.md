@@ -32,7 +32,7 @@ The initial architecture could not carry the load. It stalled at roughly 5,000 c
 
 Esdiac rebuilt its distributed communications network and payment system on the **Akka Agentic AI Platform**. The platform carried the same workload on a fraction of the infrastructure and held availability across a service that spans hundreds of cities, so growth no longer meant a matching rise in cost.
 
-This is the **Never Fail** guarantee: the Akka Agentic AI Platform handles clustering, resilience, durable in-memory state, and traffic steering, so the application does not have to. Failed components recover automatically, which is critical for a real-time calling and payments service.
+The Akka Agentic AI Platform handles clustering, resilience, durable in-memory state, and traffic steering, so the application does not have to. Failed components recover automatically, which is critical for a real-time calling and payments service.
 
 ## The results
 

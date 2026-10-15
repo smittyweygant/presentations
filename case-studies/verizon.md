@@ -34,7 +34,7 @@ Verizon ran online sales on an Oracle commerce platform deployed more than a dec
 
 ## Why Akka
 
-Verizon's architecture team evaluated the major platforms over two months and standardized on the **Akka Agentic AI Platform** for its scalability, hot reload, operational simplicity, and real-time responsiveness. The deciding factor was efficiency: Akka ran the same commerce workload on a fraction of the infrastructure, with services that restart in seconds and stay responsive under peak load. This is the **Never Fail** guarantee: the Akka Agentic AI Platform handles clustering, resilience, durable in-memory state, and traffic steering, so the application does not have to.
+Verizon's architecture team evaluated the major platforms over two months and standardized on the **Akka Agentic AI Platform** for its scalability, hot reload, operational simplicity, and real-time responsiveness. The deciding factor was efficiency: Akka ran the same commerce workload on a fraction of the infrastructure, with services that restart in seconds and stay responsive under peak load. The Akka Agentic AI Platform handles clustering, resilience, durable in-memory state, and traffic steering, so the application does not have to.
 
 ## The results
 

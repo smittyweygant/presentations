@@ -32,7 +32,7 @@ Under that fanout, P99 prediction latency reached 144ms, and duplicate feature l
 
 Swiggy built its Data Science Platform on the **Akka Agentic AI Platform** and applied five optimization strategies on top of it: micro-batch construction, client- and server-side feature reuse, batching at the feature-store level, batching at the model-prediction level, and partial prediction with micro-batch timeouts. The platform handles concurrency, request steering, and durable in-memory state so the data science team writes prediction logic, not serving infrastructure.
 
-This is the **Never Fail** guarantee: the Akka Agentic AI Platform handles clustering, resilience, durable state, and traffic steering under load, so the application stays inside its SLA even as batch volume spikes.
+The Akka Agentic AI Platform handles clustering, resilience, durable state, and traffic steering under load, so the application stays inside its SLA even as batch volume spikes.
 
 ## The results
 

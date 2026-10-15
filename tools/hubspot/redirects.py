@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
-"""Create the akka.io 301s that send the old get-started paths to /install.
+"""Create the akka.io 301s for retired paths: the old get-started pages go to /install, and the
+listing pages of the unpublished benchmark and staging blogs go to /blog, and an old
+customer-story post with no story page goes to /customers.
 
     python tools/hubspot/redirects.py          # list each route, the redirect HubSpot has for it, and what it serves
     python tools/hubspot/redirects.py --push   # create the redirects that are missing
@@ -26,6 +28,10 @@ ROUTES = {
     "/get-started/build": INSTALL,
     **{f"/get-started/build/{n}": INSTALL for n in BUILD_COPIES},
     "/llms-all.txt": "https://akka.io/llms-full.txt",
+    "/akka-performance-benchmark": "https://akka.io/blog",
+    "/akka-blog-staging": "https://akka.io/blog",
+    "/customer-stories/scalable-real-time-event-manager-based-on-akka-streams-and-a-highly-reliable-scalable-and-unified-interface-for-payment-products":
+        "https://akka.io/customers",
 }
 
 

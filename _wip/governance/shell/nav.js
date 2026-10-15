@@ -8,7 +8,8 @@
 const views = [
     document.getElementById('title'),
     document.getElementById('slide-cibc-requirements-wrapper'),
-    document.getElementById('slide-ai-regulations-wrapper'),
+    document.getElementById('slide-integration-parts-wrapper'),
+    document.getElementById('slide-shared-abstractions-wrapper'),
     document.getElementById('slide-01-posture-wrapper'),
     document.getElementById('slide-02-lifecycle-wrapper'),
     document.getElementById('slide-03-control-types-wrapper'),

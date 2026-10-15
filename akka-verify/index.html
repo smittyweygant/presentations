@@ -479,10 +479,10 @@
     <div class="eyebrow reveal">Why it matters</div>
     <h2 class="shead reveal">The cost of getting governance <span style="color:var(--red);">wrong.</span></h2>
     <div class="stats reveal">
-      <div class="stat"><div class="v" data-corpus="regulations" data-count="190">0</div><div class="l">AI regulations worldwide</div></div>
-      <div class="stat"><div class="v" data-corpus="penalty-regulations" data-count="122">0</div><div class="l">carry financial penalties</div></div>
-      <div class="stat"><div class="v" data-count="7" data-suffix="%">0</div><div class="l">EU AI Act maximum penalty</div></div>
-      <div class="stat"><div class="v" data-count="79" data-suffix="%">0</div><div class="l">of avoidable token spend</div></div>
+      <div class="stat"><div class="v" data-corpus="regulations" data-count="227">227</div><div class="l">regulations and frameworks</div></div>
+      <div class="stat"><div class="v" data-corpus="penalty-regulations" data-count="145">145</div><div class="l">carry financial penalties</div></div>
+      <div class="stat"><div class="v" data-count="7" data-suffix="%">7%</div><div class="l">EU AI Act maximum penalty</div></div>
+      <div class="stat"><div class="v" data-count="79" data-suffix="%">79%</div><div class="l">of avoidable token spend</div></div>
     </div>
   </div>
 </section>
@@ -507,7 +507,7 @@
       <div class="prow">
         <div class="left"><div class="pq">Will it stay in bounds?</div><div class="pd">Something has to stop it when it goes wrong.</div></div>
         <div class="right"><div class="pcat">Guardrails</div><div class="pchips"><span class="pchip">Guardrails AI</span><span class="pchip">NVIDIA NeMo</span><span class="pchip">Patronus</span><span class="pchip">Llama Guard</span></div></div>
-        <div class="akkacell"><div class="ak-v">Enforce</div><div class="ak-d">Guardrails, sanitizers, HITL, halts.</div></div>
+        <div class="akkacell"><div class="ak-v">Enforce</div><div class="ak-d">Guardrails, sanitizers, Human, halts.</div></div>
       </div>
       <div class="prow">
         <div class="left"><div class="pq">Can you answer for it?</div><div class="pd">A record an auditor or regulator will accept.</div></div>
@@ -522,7 +522,7 @@
 <section id="s3">
   <div class="inner">
     <div class="eyebrow reveal">Akka Verify</div>
-    <h2 class="defhead reveal">Akka Verify is continuous <span class="accent">evaluation and governance</span> for agentic AI.</h2>
+    <h2 class="defhead reveal">Akka Verify is runtime-native <span class="accent">evaluation, enforcement, evidence and governance</span> for agents built on Akka or elsewhere.</h2>
     <div class="vz reveal">
       <div class="vz-flow">
         <div class="vz-src2">
@@ -538,7 +538,7 @@
           <button class="vznode" data-k="evaluations"><span class="dotmark"></span><span class="nn">Evaluations</span><span class="nd">observe, grade, score</span></button>
           <button class="vznode" data-k="guardrails"><span class="dotmark"></span><span class="nn">Guardrails</span><span class="nd">act inline</span></button>
           <button class="vznode" data-k="sanitizers"><span class="dotmark"></span><span class="nn">Sanitizers</span><span class="nd">redact, mask, reshape</span></button>
-          <button class="vznode" data-k="hitl"><span class="dotmark"></span><span class="nn">HITL Escalations</span><span class="nd">a human in the loop</span></button>
+          <button class="vznode" data-k="hitl"><span class="dotmark"></span><span class="nn">Human Escalations</span><span class="nd">a human in the loop</span></button>
           <button class="vznode" data-k="audit"><span class="dotmark"></span><span class="nn">Audit &amp; attestation</span><span class="nd">tamper-evident</span></button>
         </div>
       </div>
@@ -557,7 +557,7 @@
   <div class="inner">
     <div class="eyebrow reveal">Define your risk</div>
     <h2 class="shead reveal">Define policies based upon your <span class="accent">risk profile.</span></h2>
-    <p class="ssub reveal">Identify policies and controls that are required from <!--corpus:regulations-->190<!--/corpus--> regulations by answering questions that define your AI risk profile. A selection of risk survey questions are sampled below.</p>
+    <p class="ssub reveal">Identify policies and controls that are required from <!--corpus:regulations-->227<!--/corpus--> regulations and frameworks by answering questions that define your AI risk profile. A selection of risk survey questions are sampled below.</p>
     <div class="govframe reveal">
       <iframe src="risk-survey/index.html" title="Define your risk" loading="lazy" allow="fullscreen"></iframe>
       <a class="gov-mobile-card" href="risk-survey/index.html" target="_blank" rel="noopener">
@@ -607,7 +607,7 @@
   <div class="inner">
     <div class="eyebrow reveal" style="display:inline-block;">The Akka Agentic AI Platform</div>
     <h2 class="reveal">An <span class="accent">integrated platform.</span></h2>
-    <div class="fam-sub reveal">A platform that builds and modernizes software, runs it, keeps it honest, and holds its cost down.</div>
+    <div class="fam-sub reveal">The platform uses smart shared abstractions to make every AI system as efficient as possible.</div>
 
     <div class="fam-grid reveal">
       <!-- CAKE:BODY (generated from sales-presentation/slides/family-platform by _build/sync_cake.py — do not edit here; edit the canonical slide) -->
@@ -616,7 +616,7 @@
         <div class="cake">
 
           <div class="layer">
-            <div class="role">Deliver<b>&amp; Govern</b></div>
+            <div class="role">Define<b>&amp; Govern</b></div>
             <div class="cards two govwide">
               <div class="ocard rt-pick" data-rt="specify" tabindex="0" role="button" aria-pressed="false">
                 <div class="oname">Akka Specify</div>
@@ -659,20 +659,20 @@
       <div class="rt-panel">
         <div class="rt-panel-body" data-rt-body="specify" hidden>
           <h3>Akka Specify</h3>
-          <p>Akka Specify is <span class="accent">spec-driven delivery</span>: tooling for developers and non-developers to build and test agentic systems.</p>
+          <p>Akka Specify is <span class="accent">spec-driven development tooling</span> that builds an agentic system from plain-language specifications and checks every change against them.</p>
           <p>Specifications carry the exit conditions the system must meet. Any change that drifts from them is blocked before it merges.</p>
-          <p>The specs live with the code, so <span class="accent">technical and knowledge debt do not accumulate</span>. Specify runs inside the repos, CI, and AI assistants your teams already use.</p>
+          <p>The specs live with the code, so <span class="accent">technical and knowledge debt do not accumulate</span>. Specify runs inside the repos, CI, and AI harnesses your teams already use.</p>
         </div>
         <div class="rt-panel-body" data-rt-body="verify" hidden>
           <h3>Akka Verify</h3>
-          <p>Akka Verify governs agents <span class="accent">at runtime</span>: it decides what an agent may do and records what it did.</p>
-          <p>Policies allow, block, or report. Evaluations grade and score every response. Guardrails act inline, sanitizers redact and mask, and <span class="accent">HITL escalations</span> put a person in the loop.</p>
-          <p>Every run leaves a durable evidence record you can hand to an auditor, mapped against a corpus of <span class="accent"><!--corpus:regulations-->190<!--/corpus--> AI regulations</span>. It covers agents built on Akka and agents built elsewhere.</p>
+          <p>Akka Verify is <span class="accent">runtime-native</span> evaluation, enforcement, evidence and governance for agents built on Akka or elsewhere.</p>
+          <p>Policies allow, block, or report. Evaluations grade and score every response. Guardrails act inline, sanitizers redact and mask, and <span class="accent">Human escalations</span> put a person in the loop.</p>
+          <p>Every run leaves a durable evidence record you can hand to an auditor, mapped against a corpus of <span class="accent"><!--corpus:regulations-->227<!--/corpus--> regulations and frameworks</span>.</p>
         </div>
         <div class="rt-panel-body" data-rt-body="sdk" hidden>
           <h3>Akka SDK</h3>
-          <p>Akka SDK is the component model and runtime for agentic systems, and where <span class="accent">resilience and scalability</span> are guaranteed.</p>
-          <p><span class="accent">Agents and workflows</span> carry behaviour, <span class="accent">entities and views</span> carry durable state, and <span class="accent">endpoints, timers, and consumers</span> connect the system to everything outside it.</p>
+          <p>Akka SDK is the component model for building agentic systems. The platform&rsquo;s runtime guarantees the <span class="accent">resilience and scalability</span> of everything built with it.</p>
+          <p><span class="accent">Agents and workflows</span> carry behaviour. <span class="accent">Entities and views</span> carry durable state. <span class="accent">Endpoints, timers and consumers</span> connect the system to everything outside it.</p>
           <p>State is durable by default and replayable from its event journal, so an agent that fails mid-task <span class="accent">resumes from where it stopped</span>.</p>
         </div>
         <div class="rt-panel-body" data-rt-body="agents" hidden>
@@ -732,8 +732,8 @@
         </div>
         <div class="rt-panel-body" data-rt-body="shredder" hidden>
           <h3>Akka Optimize</h3>
-          <p>Akka Optimize is how you <span class="accent">own your intelligence</span>: it routes traffic to the best open-weight model and trains smaller ones on your data.</p>
-          <p>Routing sends each request to the open-weight model that handles it best. Optimize reads <span class="accent">evaluated production traffic</span> to find work a smaller model can take, then trains, proves, and promotes it.</p>
+          <p>Akka Optimize routes traffic to <span class="accent">the best open-weight model</span> and trains smaller ones on your data.</p>
+          <p>Optimize reads <span class="accent">evaluated production traffic</span> to find work a smaller model can take, then trains, proves, and promotes it.</p>
           <p>The measure is <span class="accent">cost per verified task</span>. Quality is held to the evidence Verify already collects, so cost falls without behaviour drifting.</p>
         </div>
       </div>
@@ -857,11 +857,11 @@ button.akka-install--lead.is-copied .akka-install__s::before,button.akka-install
 <script>
   const VZ={
     trace:{e:'Trace',h:'The event-sourced log of every agent interaction',b:"Akka agents have traces transparently captured without extra coding. Traces from 3rd party logs are ingested into Akka through OpenTelemetry. These interaction logs provide source data for evaluations, simulations, A/B testing, and SLM grading.",x:'<div class="trv"><div class="trv-hd"><span>span</span><span>trace &middot; triage-agent &middot; 1.84s</span></div><div class="trv-row"><span class="trv-lbl">agent.invoke</span><span class="trv-track"><i class="trv-bar" style="left:0%;width:100%"></i></span><span class="trv-t">1.84s</span></div><div class="trv-row"><span class="trv-lbl ch">guardrail &middot; prompt-injection</span><span class="trv-track"><i class="trv-bar vf" style="left:0%;width:2%"></i></span><span class="trv-t">.03s</span></div><div class="trv-row"><span class="trv-lbl ch">memory.read</span><span class="trv-track"><i class="trv-bar" style="left:2%;width:5%"></i></span><span class="trv-t">.09s</span></div><div class="trv-row"><span class="trv-lbl ch">llm.plan</span><span class="trv-track"><i class="trv-bar" style="left:6%;width:31%"></i></span><span class="trv-t">.56s</span></div><div class="trv-row"><span class="trv-lbl ch2">tool.call &middot; lookup_account</span><span class="trv-track"><i class="trv-bar" style="left:37%;width:15%"></i></span><span class="trv-t">.27s</span></div><div class="trv-row"><span class="trv-lbl ch">llm.respond</span><span class="trv-track"><i class="trv-bar" style="left:52%;width:36%"></i></span><span class="trv-t">.67s</span></div><div class="trv-row"><span class="trv-lbl ch">sanitizer &middot; pii-redact</span><span class="trv-track"><i class="trv-bar vf" style="left:88%;width:2%"></i></span><span class="trv-t">.04s</span></div><div class="trv-row"><span class="trv-lbl ch">eval &middot; faithfulness</span><span class="trv-track"><i class="trv-bar vf" style="left:90%;width:8%"></i></span><span class="trv-t">.14s</span></div></div>'},
-    policies:{e:'Policies',h:'Define safeguards and controls',b:"Create policies from AI regulations or your corporate standards. Policies are natural language controls. Akka provides a control plane that enforces execution of the controls against your agents.",x:'<table class="evx"><thead><tr><th>ID</th><th>Control (obligation)</th><th>Mechanism</th><th>Source</th></tr></thead><tbody><tr><td class="id">guardrail2</td><td class="ctl">Block protected attributes in response</td><td class="mech">Guardrail</td><td class="src">EU AI Act Art. 10(2)(f)</td></tr><tr><td class="id">sanitizer1</td><td class="ctl">Redact PII before the model sees it</td><td class="mech">Sanitizer</td><td class="src">GDPR Art. 5(1)(b)&ndash;(c)</td></tr><tr><td class="id">hitl1</td><td class="ctl">Human approval on loans over &euro;5000</td><td class="mech">HITL</td><td class="src">corporate</td></tr><tr><td class="id">eval-periodic1</td><td class="ctl">Demographic-parity drift watch, monthly</td><td class="mech">Eval &ndash; periodic</td><td class="src">EU AI Act Art. 10(2)(f)</td></tr></tbody></table>'},
+    policies:{e:'Policies',h:'Define safeguards and controls',b:"Create policies from AI regulations or your corporate standards. Policies are natural language controls. Akka provides a control plane that enforces execution of the controls against your agents.",x:'<table class="evx"><thead><tr><th>ID</th><th>Control (obligation)</th><th>Mechanism</th><th>Source</th></tr></thead><tbody><tr><td class="id">guardrail2</td><td class="ctl">Block protected attributes in response</td><td class="mech">Guardrail</td><td class="src">EU AI Act Art. 10(2)(f)</td></tr><tr><td class="id">sanitizer1</td><td class="ctl">Redact PII before the model sees it</td><td class="mech">Sanitizer</td><td class="src">GDPR Art. 5(1)(b)&ndash;(c)</td></tr><tr><td class="id">hitl1</td><td class="ctl">Human approval on loans over &euro;5000</td><td class="mech">Human</td><td class="src">corporate</td></tr><tr><td class="id">eval-periodic1</td><td class="ctl">Demographic-parity drift watch, monthly</td><td class="mech">Eval &ndash; periodic</td><td class="src">EU AI Act Art. 10(2)(f)</td></tr></tbody></table>'},
     evaluations:{e:'Evaluations',h:'Evaluations observe, grade, and score agents',b:"Akka continuously executes evaluations against the inputs and outputs of agents. Akka executes evaluations with our distributed, actor-based concurrency making them faster and more efficient than Python evaluators.",x:'<table class="evx evx--2"><thead><tr><th>Category</th><th>Evaluators</th></tr></thead><tbody><tr><td class="cg">Quality &amp; RAG metrics</td><td class="ty">faithfulness, answer relevance, context precision, groundedness</td></tr><tr><td class="cg">Agent trajectory</td><td class="ty">tool selection, path efficiency, step correctness, task completion</td></tr><tr><td class="cg">Observability platforms</td><td class="ty">trace scoring, span analysis, run comparison</td></tr><tr><td class="cg">Managed cloud eval</td><td class="ty">hosted LLM-judge scoring</td></tr><tr><td class="cg">Red-teaming &amp; adversarial</td><td class="ty">jailbreak, prompt injection, adversarial probes</td></tr><tr><td class="cg">Runtime guardrails</td><td class="ty">PII, toxicity, hallucination, off-topic detection</td></tr><tr><td class="cg">Open-weight judges</td><td class="ty">open judge models, self-hosted scoring</td></tr><tr><td class="cg">Fairness &amp; RAI auditing</td><td class="ty">bias, disparate impact, demographic parity</td></tr><tr><td class="cg">Data quality &amp; PII scanning</td><td class="ty">PII detection, leakage, redaction coverage</td></tr><tr><td class="cg">Conversational simulation</td><td class="ty">multi-turn user simulation, scenario replay</td></tr><tr><td class="cg">Benchmarks &amp; harnesses</td><td class="ty">standard test suites, regression scoring</td></tr><tr><td class="cg">Governance &amp; compliance</td><td class="ty">policy conformance, control mapping</td></tr></tbody></table>'},
     guardrails:{e:'Guardrails',h:"Act on a response before it's emitted",b:"Guardrails are blocking actions that run inline in the transactional path of an agent. They execute before or after the agent calls a tool, accesses memory, or calls a model.",x:'<div class="mgfx"><div class="grd2"><div class="grd2-agent">agent</div><div class="grd2-lanes"><div class="grd2-lane"><span class="grd2-ar">&#9654;</span><span class="grd2-gate">guardrail &middot; model</span><span class="grd-pill ok">allow &#10003;</span></div><div class="grd2-lane no"><span class="grd2-ar">&#9654;</span><span class="grd2-gate">guardrail &middot; tools</span><span class="grd-pill no">block &#10007;</span></div><div class="grd2-lane"><span class="grd2-ar">&#9654;</span><span class="grd2-gate">guardrail &middot; memory</span><span class="grd-pill ok">allow &#10003;</span></div></div></div></div>'},
     sanitizers:{e:'Sanitizers',h:'Reshape content before it leaves',b:"Transform sensitive data prior to making a tool call, invoking a model, or updating the audit log. Create destination-aware behavior that alters the form of redaction or transformation.",x:'<div class="mgfx"><div class="san-row"><span class="san-tag">in</span><code class="san-code">name: Jane Doe &middot; SSN 123-45-6789 &middot; card 4242 4242 4242 4242</code></div><div class="san-mid"><span class="san-ar">&#9660;</span><span class="san-op">sanitizer &middot; redact, mask</span></div><div class="san-row"><span class="san-tag">out</span><code class="san-code">name: Jane Doe &middot; SSN <b>&bull;&bull;&bull;-&bull;&bull;-&bull;&bull;&bull;&bull;</b> &middot; card <b>&bull;&bull;&bull;&bull; &bull;&bull;&bull;&bull; &bull;&bull;&bull;&bull; 4242</b></code></div></div>'},
-    hitl:{e:'HITL Escalations',h:'Bring a human in when a policy demands it',b:"Escalate to a human for feedback as either an application concern (e.g. asking the user in a chat for comments) or as a system concern (e.g. an operator must assess risk after a model degradation detected).",x:'<div class="mgfx"><div class="hl2"><div class="hl2-card"><div class="hl2-kind">Application concern</div><div class="hl2-flow"><span class="hl2-chip">agent pauses</span><span class="hl2-ar">&#9656;</span><div class="fbw"><div class="fbw-hd">user of your app</div><div class="fbw-msg out">Is this summary correct?</div><div class="fbw-msg in">Yes, but flag the date.</div></div><span class="hl2-ar">&#9656;</span><span class="hl2-chip">agent resumes</span></div></div><div class="hl2-card"><div class="hl2-kind">System concern</div><div class="hl2-flow"><span class="hl2-chip">agent keeps running</span><span class="hl2-ar">&#9656;</span><div class="fbw"><div class="fbw-hd">operator reviews</div><div class="fbw-alert">&#9888; model degradation detected</div><div class="fbw-msg in">Latency up, accuracy down 4%.</div></div><span class="hl2-ar">&#9656;</span><span class="hl2-outs"><span class="grd-pill no">halt &#10007;</span><span class="grd-pill fb">send feedback</span></span></div></div></div></div>'},
+    hitl:{e:'Human Escalations',h:'Bring a human in when a policy demands it',b:"Escalate to a human for feedback as either an application concern (e.g. asking the user in a chat for comments) or as a system concern (e.g. an operator must assess risk after a model degradation detected).",x:'<div class="mgfx"><div class="hl2"><div class="hl2-card"><div class="hl2-kind">Application concern</div><div class="hl2-flow"><span class="hl2-chip">agent pauses</span><span class="hl2-ar">&#9656;</span><div class="fbw"><div class="fbw-hd">user of your app</div><div class="fbw-msg out">Is this summary correct?</div><div class="fbw-msg in">Yes, but flag the date.</div></div><span class="hl2-ar">&#9656;</span><span class="hl2-chip">agent resumes</span></div></div><div class="hl2-card"><div class="hl2-kind">System concern</div><div class="hl2-flow"><span class="hl2-chip">agent keeps running</span><span class="hl2-ar">&#9656;</span><div class="fbw"><div class="fbw-hd">operator reviews</div><div class="fbw-alert">&#9888; model degradation detected</div><div class="fbw-msg in">Latency up, accuracy down 4%.</div></div><span class="hl2-ar">&#9656;</span><span class="hl2-outs"><span class="grd-pill no">halt &#10007;</span><span class="grd-pill fb">send feedback</span></span></div></div></div></div>'},
     audit:{e:'Audit & attestation',h:'Evidence an auditor will accept',b:"A tamper-evident, event-sourced log of every verdict and action. It generates the conformity reports and evidence a regulator or risk team asks for.",x:'<div class="mgfx"><div class="elog"><div class="elog-hd"><span>append-only audit log</span><span>SHA-256 chained</span></div><div class="elog-rows"><div class="elog-row"><span class="elog-seq">#1041</span><span class="elog-ev">guardrail.block &middot; tools</span><span class="elog-hash"><i class="elog-prev">0000</i><span class="elog-cn">&#8594;</span><b>9f3a</b></span></div><div class="elog-row"><span class="elog-seq">#1042</span><span class="elog-ev">llm.respond</span><span class="elog-hash"><i class="elog-prev">9f3a</i><span class="elog-cn">&#8594;</span><b>c7e1</b></span></div><div class="elog-row"><span class="elog-seq">#1043</span><span class="elog-ev">sanitizer.pii-redact</span><span class="elog-hash"><i class="elog-prev">c7e1</i><span class="elog-cn">&#8594;</span><b>4b8d</b></span></div><div class="elog-row"><span class="elog-seq">#1044</span><span class="elog-ev">eval.faithfulness &middot; pass</span><span class="elog-hash"><i class="elog-prev">4b8d</i><span class="elog-cn">&#8594;</span><b>e29a</b></span></div></div><div class="elog-note">Each record hashes the one before it. Change any event and every hash after it breaks.</div></div></div>'}
   };
   const vzItems=[...document.querySelectorAll('.vz-trace,.vznode')];

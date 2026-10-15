@@ -42,7 +42,7 @@ A shopper won't wait. Personalization, inventory, pricing, and fulfillment decis
 
 ## Governance — consumer AI, transparent and fair
 
-Retail runs AI directly against consumers — recommendations, pricing, and profiling that regulators increasingly govern for transparency and fairness. Akka tracks <!--corpus:regulations-->190<!--/corpus--> AI regulations worldwide, mapped to enforceable controls and monitored as they change.
+Retail runs AI directly against consumers — recommendations, pricing, and profiling that regulators increasingly govern for transparency and fairness. Akka tracks <!--corpus:regulations-->227<!--/corpus--> regulations and frameworks worldwide, mapped to enforceable controls and monitored as they change.
 
 - **AI governance:** EU AI Act, NIST AI RMF, ISO/IEC 42001
 - **Consumer & transparency:** EU AI Act Art. 5 & 50, GDPR, CCPA / CPRA

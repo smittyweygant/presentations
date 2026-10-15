@@ -73,7 +73,7 @@ Business outcomes (revenue, conversion) are reported as a supporting line under 
 3. **Answer-first capsule** — 40–60 words, carries the headline numbers (AEO/GEO extractable).
 4. **Akka ROI Scorecard** — the three metrics above + supporting outcome line.
 5. **The challenge** — the business problem, in facts.
-6. **Why Akka** — the decision and the platform capability it maps to (a "Never Fail / Self-Governing / Self-Improving / For Every Team" pillar).
+6. **Why Akka** — the decision and the platform capability it maps to.
 7. **The results** — quantified, grouped under the three ROI metrics.
 8. **The agentic opportunity** — the AI extrapolation (rule 3). This is the last section; the CTA band follows.
 
