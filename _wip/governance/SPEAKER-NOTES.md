@@ -75,37 +75,48 @@ errors ("ACA" is Akka), so wording here is paraphrased from it, never quoted.
 
 ---
 
-## Slide 00b — AI regulations
+## Slide 00b — Current AI systems give you parts to integrate
 
-- **Cue**: three stats on screen.
+- **Cue**: eight parts around a question mark: orchestration, agents, observability, tracing,
+  evaluations, routing, training, and SDLC. Let the room read them; the question mark is the
+  point.
 - **Script**:
 
-    Why this matters now. Regulations are multiplying, and the penalties are large. Under the EU AI Act, a prohibited practice carries a fine of up to thirty-five million euros or seven percent of global annual turnover, whichever is higher.
+    Start with what a team gets today. Current AI systems give you parts to integrate.
 
-    Take social scoring, which the Act prohibits. Imagine a lender whose AI lowers a customer's credit limit because of what that customer posts on social media. That's a risk score built from social behavior, used against the customer to assess their credit risk. That practice warrants the top penalty tier.
+    There's an orchestration layer, and there are agents. There's observability and tracing. There are evaluations, routing, training, and the software development lifecycle around all of it.
 
-    The Act also requires providers of high-risk systems to keep technical documentation for ten years.
+    Each part works. But somebody has to join them, and that somebody is you. That's the question mark in the middle.
 
-    At the same time, most governance tools monitor AI systems from the outside. They report after something has happened. They can't enforce at the point where an agent calls a model or a tool.
+    Governance is hard in that setup, because the controls, the traces, and the evaluations live in different places. Nothing ties them together.
 
-    So the questions are where enforcement lives, and how you prove it worked. The rest of this session answers both.
+- **Land**: the market gives parts, not a whole; each part works but the integration is the
+  customer's job; governance suffers most because controls, traces, and evaluations sit in
+  separate places.
+- **Sources**: slide `00b-integration-parts`; Tyler's slide, wording paraphrased.
 
+---
 
-- **Land**: the top penalty tier is for prohibited practices only — up to 35 million euros
-  or 7 percent of worldwide annual turnover, whichever is higher; social scoring is the
-  worked example, and it maps to lending; high-risk providers keep documentation for ten
-  years; outside-in tools report after the fact; enforcement at the agent boundary is the
-  gap.
-- **Sources**: EU AI Act Art. 99(3) (35M euros or 7%, prohibited practices under Art. 5);
-  Art. 99(4) (15M euros or 3%, most other operator duties); Art. 5(1)(c) (social scoring:
-  evaluating or classifying people on social behavior or personality, with detrimental
-  treatment in an unrelated context or disproportionate treatment); Art. 18 (documentation
-  kept ten years after the system is placed on the market). Checked against
-  artificialintelligenceact.eu on 2026-10-13.
-- **Do NOT say**: that 7 percent applies to all non-compliance (most operator duties are
-  3 percent); that Art. 72 requires log retention (it covers post-market monitoring); or a
-  log retention period (Art. 19) until it has been checked against the text. Fines are
-  ceilings, not standard amounts, and for small companies the lower figure applies.
+## Slide 00c — Core AI constructs are shared abstractions
+
+- **Cue**: six shared abstractions on screen: Agents, Controls, Evals, Traces, Models, and
+  Runtime. Point at Controls and Traces.
+- **Script**:
+
+    In Akka, those constructs are shared abstractions, not parts you join up.
+
+    Agents come with memory, tools, and identity. Controls cover guardrails, sanitizers, and human in the loop. Evals run before release and live. Traces record every interaction. Models can be frontier, open-weight, or small language models. And the runtime handles state, recovery, and scale.
+
+    Because they're shared, they shrink the binary, cut the cloud footprint, and shorten delivery times.
+
+    For this session, the two to watch are controls and traces. Everything we show comes from those two working together with the rest.
+
+- **Land**: the same six constructs are built into the platform, so nothing is bolted on;
+  sharing them shrinks the binary, cuts the cloud footprint, and shortens delivery; controls
+  and traces are the ones the governance story rests on.
+- **Sources**: slide `00c-shared-abstractions`; Tyler's slide, wording paraphrased. The
+  binary, footprint, and delivery claims come from the slide only; no figures are given, so
+  don't quote any.
 
 ---
 

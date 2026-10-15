@@ -11,17 +11,27 @@ Today I'm going to walk you through how Akka approaches AI governance. This is a
 
 ---
 
-## Slide 00b — AI regulations
+## Slide 00b — Current AI systems give you parts to integrate
 
-Why this matters now. Regulations are multiplying, and the penalties are large. Under the EU AI Act, a prohibited practice carries a fine of up to thirty-five million euros or seven percent of global annual turnover, whichever is higher.
+Start with what a team gets today. Current AI systems give you parts to integrate.
 
-Take social scoring, which the Act prohibits. Imagine a lender whose AI lowers a customer's credit limit because of what that customer posts on social media. That's a risk score built from social behavior, used against the customer to assess their credit risk. That practice warrants the top penalty tier.
+There's an orchestration layer, and there are agents. There's observability and tracing. There are evaluations, routing, training, and the software development lifecycle around all of it.
 
-The Act also requires providers of high-risk systems to keep technical documentation for ten years.
+Each part works. But somebody has to join them, and that somebody is you. That's the question mark in the middle.
 
-At the same time, most governance tools monitor AI systems from the outside. They report after something has happened. They can't enforce at the point where an agent calls a model or a tool.
+Governance is hard in that setup, because the controls, the traces, and the evaluations live in different places. Nothing ties them together.
 
-So the questions are where enforcement lives, and how you prove it worked. The rest of this session answers both.
+---
+
+## Slide 00c — Core AI constructs are shared abstractions
+
+In Akka, those constructs are shared abstractions, not parts you join up.
+
+Agents come with memory, tools, and identity. Controls cover guardrails, sanitizers, and human in the loop. Evals run before release and live. Traces record every interaction. Models can be frontier, open-weight, or small language models. And the runtime handles state, recovery, and scale.
+
+Because they're shared, they shrink the binary, cut the cloud footprint, and shorten delivery times.
+
+For this session, the two to watch are controls and traces. Everything we show comes from those two working together with the rest.
 
 ---
 
@@ -153,7 +163,7 @@ A human control covers the human-in-the-loop moments: approvals, halts, feedback
 
 A gate is a release activity. It runs against documents or in pre-production to confirm a system is ready. For example, blocking a deploy that lacks a current bias-audit attestation.
 
-And a sanitizer redacts, masks, or strips data before it moves on. For example, removing an applicant's Social Security number before the model sees it.
+And a sanitizer redacts, masks, or strips data before it moves on. For example, removing an applicant's Social Security number before the model sees it, like we saw in the demo.
 
 ---
 
@@ -355,4 +365,4 @@ Thank you.
 
 ---
 
-Spoken words: about 2641 (2641 on slides, 0 in demos). At 150 words a minute that is about 17 minutes on slides and 0 in demos, plus time spent clicking.
+Spoken words: about 2666 (2666 on slides, 0 in demos). At 150 words a minute that is about 17 minutes on slides and 0 in demos, plus time spent clicking.

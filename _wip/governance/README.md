@@ -55,7 +55,7 @@ the source.
 | 10 | `09-ai-gateway` | Akka provides an AI gateway, agent runtime, and control runtime in the same environment — controls enforce on Akka agents **and** (mostly) non-Akka agents. |
 | 11 | `10-tokenomics` | Traces, tokens, and verdicts are recorded together; token visibility across all models/agents enables cost governance — budgeting, chargeback, real-time optimization. |
 
-Plus `00-title`, `00a-cibc-requirements`, `00b-ai-regulations`, and `zz-thankyou` around the eleven. `00a` carries a customer name and belongs only in a customer copy; `07b` is the one principle that goes beyond Tyler's original ten-principle script.
+Plus `00-title`, `00a-cibc-requirements`, `00b-integration-parts`, `00c-shared-abstractions`, and `zz-thankyou` around the eleven. `00a` carries a customer name and belongs only in a customer copy; `07b` is the one principle that goes beyond Tyler's original ten-principle script.
 
 ## Known gaps against the canonical source
 
@@ -78,17 +78,13 @@ pass has a clear punch list:
   "Breached", and the runbook's Demo 1 steps describe that label.
 - **Customer slide in the generic deck.** `00a-cibc-requirements` carries a customer name,
   which this README says doesn't belong here. It belongs only in a customer copy.
-- **EU AI Act figures (slide 00b).** Checked against the Act's text on 2026-10-13: only
-  prohibited practices carry the 35 million euro / 7% ceiling (Art. 99(3)); documentation
-  retention is ten years (Art. 18). The log retention period (Art. 19) isn't verified, and
-  the scripts don't state one.
 - **Voice check.** The `house-voice` skill named in the repo's `CLAUDE.md` wasn't available
   when the scripts were written, so they haven't had a voice pass.
 - **Presenter file.** `presenters/smitty.json` lists LinkedIn `smithweygant`. Check it isn't
   a typo; it prints on the title and close slides.
 - **Slide framing audit.** `tools/auditors/pgdn-frame` looks for Edge at Windows paths, so it
   can't run on a Mac. Slides were measured in Chrome instead (all fit a 763px viewport);
-  only 00b, 02 and 06 were viewed rendered.
+  only 02 and 06 were viewed rendered.
 
 ## Talk track
 
