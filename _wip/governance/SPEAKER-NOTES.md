@@ -163,9 +163,11 @@ errors ("ACA" is Akka), so wording here is paraphrased from it, never quoted.
 
     Verify opens into Risk, Controls, Evaluations, Human, Activity, and Compliance. We start at Risk.
 
-    This is the live risk survey for this system. It's partway through, which is the honest state of an intake in flight. The console groups the questions into seven sections. They're the same four ideas from the slide, in finer detail.
+    This is the live risk survey for this system. It's partway through, which is the honest state of an intake in flight. The console groups the questions into seven sections. They're aligned to the four areas from the slide, in finer detail.
 
     [Answer one question]
+
+    I'll change one of the jurisdictions. [REMOVE UK]
 
     That's step one, Define Risk. One answer, and controls are derived from it, each tied to an article in the regulatory corpus.
 
@@ -207,13 +209,13 @@ errors ("ACA" is Akka), so wording here is paraphrased from it, never quoted.
 
     [D1.6 · Activity > Verdicts]
 
-    Step four, Enforce. Every control in the bundle that applies at runtime is enforced on the requests it covers, and each execution lands here as a verdict, newest first.
+    [Verdicts] Step four, Enforce. Every control in the bundle that applies at runtime is enforced on the requests it covers, and each execution lands here as a verdict, newest first.
 
-    Most are upheld, and a few are violations. The console labels those Breached. We also refer to these as violations.
+    Most are upheld, and a few are violations.
 
-    [Point at a Breached row and an Error row]
+    [Filter on Errors]
 
-    For reference, this sample project's history is simulated, however it reflects the activity of a real system and captures the source of every verdict.
+    We see an error - PII Redaction at model boundary. This error threw at the time of the call, and the PII data was protected from being sent to an LLM. The details show this was in production and the notice writer agent was blocked.
 
     We'll come back to this ledger in detail later.
 
@@ -225,7 +227,7 @@ errors ("ACA" is Akka), so wording here is paraphrased from it, never quoted.
 
     This project isn't fully compliant today, and the page says exactly which controls and why. That's the honest position, and it's what a measured posture looks like.
 
-    That ledger is the governance posture from the first slide. Enforced, measured, provable. Nothing here was asserted.
+    The ledger concretely describes our governance posture and state of compliance over time. We can describe how it is Enforced, measured, and provable.
 
     [D1.8 · Deck tab]
 
@@ -267,7 +269,7 @@ errors ("ACA" is Akka), so wording here is paraphrased from it, never quoted.
 
     A gate is a release activity. It runs against documents or in pre-production to confirm a system is ready. For example, blocking a deploy that lacks a current bias-audit attestation.
 
-    And a sanitizer redacts, masks, or strips data before it moves on. For example, removing an applicant's Social Security number before the model sees it.
+    And a sanitizer redacts, masks, or strips data before it moves on. For example, removing an applicant's Social Security number before the model sees it, like we saw in the demo.
 
 
 - **Land**: a control is one discrete, provable requirement; exactly five types — guardrail,

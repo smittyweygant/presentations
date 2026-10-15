@@ -57,7 +57,7 @@ Arrange these BEFORE joining the call. Use ⌘⇥ / Mission Control to move betw
 
 | # | Window | State | Position |
 |---|---|---|---|
-| **1** | **Chrome — deck tab** at `file:///.../_wip/governance/generated/overview/index.html` | Fullscreen (F key) | Primary display |
+| **1** | **Chrome — deck tab** at `http://127.0.0.1:8765/index.html` (served by `node dev-server.mjs`) | Fullscreen (F key) | Primary display |
 | **2** | **Chrome — Console tab** at `http://localhost:9889`, on **Canvas with the left nav collapsed**. This one tab carries all four demos (`demos/`). | Regular tab | Same window as (1) |
 | **3** | **Terminal — service logs** (workbench-svc on `:8730`, the trace ledger on `:9096`), or `/tmp/governance-demo-logs/` when started with `demo-env.sh`. | 40-col wide, visible | Second display (or hidden until needed) |
 | **4** | **VS Code / editor** with `SPEAKER-NOTES.md` open | Second display or ⌘⇥ target | Secondary display |
@@ -113,8 +113,18 @@ Chrome tab 2 starts every demo on **Canvas with the left nav collapsed**. Each d
 
 ### 2.4 Load the deck fullscreen
 
-Open **Chrome tab 1** at
-`file:///Users/smittyweygant/akka/presentations/_wip/governance/generated/overview/index.html`.
+Start the deck server in its own terminal tab and leave it running:
+
+```bash
+cd ~/akka/presentations/_wip/governance && node dev-server.mjs
+```
+
+It builds the deck on start, rebuilds without the zip when anything under `slides/`, `shell/`,
+`builder/` or `presenters/` changes (about 300 ms), and reloads the open page. A late edit to a
+slide shows up in Chrome without a manual build. Wait for `built in … ms` before opening the page.
+
+Open **Chrome tab 1** at `http://127.0.0.1:8765/index.html`. An open page reloads itself after each
+rebuild, so make late edits before you start presenting.
 Press **F** (or ⌃⌘F) for fullscreen. Verify the title slide lands cleanly with your
 name/title.
 
@@ -247,7 +257,7 @@ mvn -q compile exec:java
 First run compiles from cold — allow ~60-90s. Confirm it's up:
 
 ```bash
-curl -s -o /dev/null -w "%{http_code}\n" http://127.0.0.1:9096/traces?limit=1   # expect 200
+curl -s -o /dev/null -w "%{http_code}\n" "http://127.0.0.1:9096/traces?limit=1"   # expect 200
 ```
 
 Long-running, same pattern as workbench-svc (§2.1) — leave it in its own terminal window
@@ -347,7 +357,7 @@ cd ~/akka/presentations/_wip/governance && ./demo-env.sh reset
 
 ```
 ENVIRONMENT      cd ~/akka/presentations/_wip/governance && ./demo-env.sh up --pull   (also: down, status)
-DECK             file:///Users/smittyweygant/akka/presentations/_wip/governance/generated/overview/index.html
+DECK             http://127.0.0.1:8765/index.html   (node dev-server.mjs must be running)
 CONSOLE (ALL)    http://localhost:9889  (land on Canvas, nav collapsed). Click sheets: demos/
 DEMO PROJECT     ./demo-env.sh snapshot (save baseline)   ./demo-env.sh reset (restore it)
 DEMO 1 BACKEND   workbench-svc must be running — not presented directly, console discovers it
@@ -369,7 +379,7 @@ NEXT SLIDE       PgDn / → / Space
 PREV SLIDE       PgUp / ←
 FULLSCREEN       F  (⌘⇧F to toggle)
 BUILD DECK       cd ~/akka/presentations/_wip/governance && python3 builder/build.py --mode overview
-DEV SERVER       cd ~/akka/presentations/_wip/governance && node dev-server.mjs   (live reload, :8765)
+DECK SERVER      cd ~/akka/presentations/_wip/governance && node dev-server.mjs   (rebuilds on change, no zip, reloads page, :8765)
 ```
 
 ---
